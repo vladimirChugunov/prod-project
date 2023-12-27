@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Theme } from 'app/providers/ThemeProvider';
-import { AppLick, AppLinkTheme } from './AppLick';
+import { AppLink, AppLinkTheme } from './AppLink';
 
-const meta: Meta<typeof AppLick> = {
+const meta: Meta<typeof AppLink> = {
     title: 'shared/AppLink',
-    component: AppLick,
+    component: AppLink,
     parameters: {
         layout: 'start',
     },
@@ -17,7 +17,7 @@ const meta: Meta<typeof AppLick> = {
 
 export default meta;
 
-type Story = StoryObj<typeof AppLick>;
+type Story = StoryObj<typeof AppLink>;
 
 export const PrimaryDark: Story = {
     args: {
