@@ -21,12 +21,16 @@ jobs:
         run: npm install # run сервер, который запускает ваши рабочие процессы при их запуске # npm install запускаем сборку проета
       - name: build production project
         run: npm run build:prod
+        if: always() # дает возсожность запуска, если предыдущая проверка непрошла
       - name: linting typescript
         run: npm run lint:ts
+        if: always()
       - name: linting css
         run: npm run lint:scss
+        if: always()
       - name: unit testing
         run: npm run test:unit
+        if: always()
       - name: build storybook
         run: npm run storybook:build
 #      - name: screenshot testing
