@@ -1,0 +1,48 @@
+// растягиваем на всю ширину экрана top...
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  color: var(--primary-color);
+}
+
+// Задаем затемнение и растягиваем на всю ширину экрана
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--bg-color); // меняем в зависимости от цвета фона
+  transition: 0.3s transform; // позволяет вращать, масштабировать, наклонять или переводить элемент
+  transform: scale(0.5); // Позволяет поворачивать, масштабировать, наклонять или сдвигать элемент
+  max-width: 60%;
+}
+
+// pointer-events - запрещаем нажатие или разрешаем
+.opened {
+  pointer-events: auto;
+  opacity: 1;
+  z-index: var(--modal-z-index);
+  // переопределяем контент, для открытого состояния
+  .content {
+    transform: scale(1);
+  }
+}
+
+.isClosing {
+  .content {
+    transform: scale(0.2);
+  }
+}

@@ -4,7 +4,7 @@ import { Theme } from 'app/providers/ThemeProvider';
 import { Button, ButtonSize, ButtonTheme } from './Button';
 
 const meta: Meta<typeof Button> = {
-    // Путь и нащвание папки в сторибуке
+    // Путь и название папки в сторибуке
     title: 'shared/Button',
     component: Button,
     parameters: {
@@ -33,6 +33,13 @@ export const Clear: Story = {
     args: {
         children: 'Text',
         theme: ButtonTheme.CLEAR,
+    },
+};
+
+export const ClearInverted: Story = {
+    args: {
+        children: 'Text',
+        theme: ButtonTheme.CLEAR_INVERTED,
     },
 };
 
