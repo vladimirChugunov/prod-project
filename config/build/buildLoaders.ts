@@ -7,7 +7,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
     };
-
+    // Транспилятор для js , использую ts loader он не нужен
     const babelLoader = {
         test: /\.(js|jsx|tsx)$/,
         exclude: /node_modules/,
