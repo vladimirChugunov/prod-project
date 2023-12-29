@@ -7,5 +7,7 @@
   "throwErr": "Throw error",
   "languageCollapsed": "Eng",
   "unexpectedError": "unexpectedError",
-  "refreshPage": "refreshPage"
+  "refreshPage": "refreshPage",
+  "increment": "Increment",
+  "decrement": "Decrement"
 }

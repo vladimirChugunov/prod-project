@@ -8,18 +8,18 @@ import { DeepPartial } from '@reduxjs/toolkit';
 
 export interface ComponentRenderOptions {
     route?: string;
-    initialSate?: DeepPartial<StateSchema>
+    initialState?: DeepPartial<StateSchema>
 }
 
 // Враппер для использования тестов с i18n и роутингом , передаем туда компонет для тестирования
 export function componentRender(component: ReactNode, options: ComponentRenderOptions = {}) {
     const {
         route = '/',
-        initialSate,
+        initialState,
     } = options; // можно передавать значения по умолчанию в дуструктуризацию
     // MemoryRouter хранит историю вашего «URL-адреса» в памяти (не читает и не записывает в адресную строку), StoreProvider для компонентов в которых используется стейт редакс
     return render(
-        <StoreProvider initialState={initialSate as StateSchema}>
+        <StoreProvider initialState={initialState as StateSchema}>
             <MemoryRouter initialEntries={[route]}>
                 <I18nextProvider i18n={i18nForTests}>{component}</I18nextProvider>
             </MemoryRouter>
