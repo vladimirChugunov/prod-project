@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Theme } from 'app/providers/ThemeProvider';
-import { Counter } from './Counter';
+import { Sidebar } from './Sidebar';
 
-const meta: Meta<typeof Counter> = {
+const meta: Meta<typeof Sidebar> = {
     title: 'widget/Sidebar',
-    component: Counter,
+    component: Sidebar,
     parameters: {
         layout: 'start',
     },
@@ -15,7 +15,7 @@ const meta: Meta<typeof Counter> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Counter>;
+type Story = StoryObj<typeof Sidebar>;
 
 export const DarkSidebar: Story = {};
 export const LightSidebar: Story = {};

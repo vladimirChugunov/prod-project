@@ -1,5 +1,5 @@
-import { Counter } from './ui/Sidebar/Counter';
+import { Sidebar } from './ui/Sidebar/Sidebar';
 
 export {
-    Counter,
+    Sidebar,
 };
