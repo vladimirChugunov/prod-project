@@ -14,7 +14,7 @@ interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
+export const Counter = ({ className }: SidebarProps) => {
     const { t } = useTranslation('sidebar');
     const [collapsed, setCollapsed] = useState(false);
 

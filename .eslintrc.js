@@ -54,8 +54,9 @@ module.exports = {
         'arrow-body-style': ['warn', 'as-needed'],
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
-        'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'error',
+        'react-hooks/rules-of-hooks': 'error', // Проверка правила хуков
+        'react-hooks/exhaustive-deps': 'error', // Проверка зависемомтей
+        'no-param-reassign': 'off', // Даем возможность метять аргументы функции для редакс
     },
     globals: {
         __IS_DEV__: true,
