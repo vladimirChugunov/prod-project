@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import React, { useCallback, useState } from 'react';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { Modal } from 'shared/ui/Modal/Modal';
+import { LoginModal } from 'features/AuthByUserName';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
@@ -13,8 +13,15 @@ export const Navbar = ({ className }: NavbarProps) => {
     const { t } = useTranslation('navbar');
     const [isAuthModal, setIsAuthModal] = useState(false);
     // ссылки которые мы передаем пропсами сохраняем/ но есть ньюансы
-    const onToggleModal = useCallback(() => {
-        setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
+    // закрывается модалка в Modal, там описан сброс
+    const onCloseModal = useCallback(() => {
+        //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
+        setIsAuthModal(false);
+    }, []);
+
+    const onShowModal = useCallback(() => {
+        //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
+        setIsAuthModal(true);
     }, []);
 
     return (
@@ -23,18 +30,11 @@ export const Navbar = ({ className }: NavbarProps) => {
             <Button
                 theme={ButtonTheme.CLEAR_INVERTED}
                 className={cls.links}
-                onClick={onToggleModal}
+                onClick={onShowModal}
             >
                 {t('login')}
             </Button>
-            <Modal
-                isOpen={isAuthModal}
-                onClose={onToggleModal}
-            >
-                {/* eslint-disable-next-line */}
-                {t('skgheowplmnsdapoiaslkdgaqoilkbcvjahfopkaweflqwenjlalknhfoiqwehoiASDJFGOIQHWEROIHQOI')}
-
-            </Modal>
+            <LoginModal isOpen={isAuthModal} onClose={onCloseModal} />
         </div>
     );
 };
