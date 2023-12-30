@@ -20,6 +20,5 @@ export const counterSlice = createSlice({
     },
 });
 
-// Action creators are generated for each case reducer function
-export const { actions: counterActions } = counterSlice;
-export const { reducer: counterReduces } = counterSlice; // Чистая функция которая примнимает стейт и 2 аргументом action для его изменения
+export const { actions: counterActions } = counterSlice; // Action вызываем в компоненте изменяем increment/decrement
+export const { reducer: counterReducer } = counterSlice; // Чистая функция которая примнимает стейт и 2 аргументом action для его изменения

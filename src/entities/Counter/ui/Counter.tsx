@@ -7,7 +7,7 @@ import { getCounterValue } from '../model/selectors/getCounterValue/getCounterVa
 export const Counter = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const counterValue = useSelector(getCounterValue); // передаем функцию getCounterValue, которая возвращает значения счетчика
+    const counterValue = useSelector(getCounterValue); // передаем функцию getCounterValue из селектора, которая возвращает значения счетчика
     const increment = () => {
         dispatch(counterActions.increment()); // Вызывает функцию increment в counterSlice и там выполняет state.value += 1
     };

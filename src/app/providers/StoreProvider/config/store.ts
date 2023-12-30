@@ -1,13 +1,18 @@
 // Импортируем конфиги из Redux Toolkit
 import { configureStore } from '@reduxjs/toolkit';
-import { counterReduces } from 'entities/Counter';
+import { counterReducer } from 'entities/Counter';
+import { userReducer } from 'entities/User';
 import { StateSchema } from './StateSchema';
 
 // создаем функцию для переиспользования в сторибуке и тестов jest
 export function createReduxStore(initialState?: StateSchema) {
-// Настраиваем конфиги redux Toolkit
+    const rootReducers = {
+        counter: counterReducer, user: userReducer,
+    };
+
+    // Настраиваем конфиги redux Toolkit
     return configureStore<StateSchema>({ // Передаем общие типы из всех слайсов
-        reducer: { counter: counterReduces }, // тут передаем существующие в проете редьюсеры
+        reducer: rootReducers, // тут передаем существующие в проекте редьюсеры
         devTools: __IS_DEV__, // отключаем devTools в продакшене
         preloadedState: initialState,
     });

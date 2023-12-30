@@ -6,7 +6,7 @@ import { createReduxStore } from '../config/store';
 
 interface StoreProviderProps {
     children?: ReactNode;
-    initialState?: DeepPartial<StateSchema> // Сделал для того, что-бы задать initialState для state в тестах, без него не зададит стейт для начального значения с которым сравниваем
+    initialState?: DeepPartial<StateSchema> // Сделал для того, что-бы задать initialState для state в тестах, без него не задаст стейт для начального значения с которым сравниваем
 }
 
 export const StoreProvider = (props: StoreProviderProps) => {
