@@ -10,7 +10,7 @@ interface ModalProps {
     children?: ReactNode
     isOpen?: boolean;
     onClose?: () => void
-
+    lazy?: boolean;
 }
 
 const ANIMATION_DELAY = 200;
@@ -20,10 +20,19 @@ export const Modal = ({
     children,
     isOpen,
     onClose,
+    lazy, // добавляем модалку в дом дерево, только когда lazy === true , при ее открытии только (Ленивая загрузка), для добавления в модалку ассинхронных компонетов
 }: ModalProps) => {
     const [isClosing, setIsClosing] = useState(false);
     // <ReturnType<typeof setTimeout> получаем тип который возвращает setTimout
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const [isMounted, setIsMounted] = useState(false); // вмонтирована модалка в дом дерево или нет
+
+    // Как только откроем модалку добавляем в дом дерево модалку
+    useEffect(() => {
+        if (isOpen) {
+            setIsMounted(true);
+        }
+    }, [isOpen]);
 
     const closeHandler = useCallback(() => {
         if (onClose) {
@@ -33,6 +42,7 @@ export const Modal = ({
             setIsClosing(true);
             timerRef.current = setTimeout(() => {
                 onClose();
+                // setIsMounted(false); // подумай надо или нет, возможно при отправки формы проблемы если после закрытия убирать е из дом дерева
                 setIsClosing(false);
             }, ANIMATION_DELAY);
         }
@@ -70,6 +80,10 @@ export const Modal = ({
         [cls.opened]: isOpen, //  применяем или не применяем стили по классам котрые лежат в Modal.module.scss
         [cls.isClosing]: isClosing,
     };
+    // если передан проп lazy и модалка не открыта, то вместо модалки возвращаем true
+    if (lazy && !isMounted) {
+        return null;
+    }
 
     return (
         <Portal>

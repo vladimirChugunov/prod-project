@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Counter } from 'entities/Counter';
+import { Input } from 'shared/ui/input/Input';
 
 const MainPage = () => {
     const { t } = useTranslation();
+    const [value, setValue] = useState('');
+
+    const onChange = (val: string) => {
+        setValue(val);
+    };
 
     return (
-        <>
-            <Counter />
-            <div>
-                {t('main')}
-            </div>
-        </>
+        <div>
+            {t('main')}
+        </div>
     );
 };
 

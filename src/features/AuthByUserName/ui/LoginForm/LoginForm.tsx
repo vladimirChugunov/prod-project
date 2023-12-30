@@ -6,6 +6,7 @@ import cls from './LoginForm.module.scss';
 
 interface LoginFormProps {
     className?: string;
+
 }
 
 export const LoginForm = ({ className }: LoginFormProps) => {
@@ -15,8 +16,17 @@ export const LoginForm = ({ className }: LoginFormProps) => {
         <div
             className={classNames(cls.LoginForm, {}, [className])}
         >
-            <Input type="text" className={cls.input} />
-            <Input type="text" className={cls.input} />
+            <Input
+                label={t('userName')}
+                type="text"
+                className={cls.input}
+                autoFocus
+            />
+            <Input
+                label={t('password')}
+                type="text"
+                className={cls.input}
+            />
             <Button className={cls.loginBtn}>
                 {t('login')}
             </Button>
