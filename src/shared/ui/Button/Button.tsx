@@ -22,6 +22,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     theme?: ButtonTheme;
     square?: boolean;
     size?: ButtonSize;
+    disabled?: boolean;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
@@ -31,6 +32,7 @@ export const Button: FC<ButtonProps> = (props) => {
         theme,
         square,
         size = ButtonSize.M,
+        disabled,
         ...otherProps
     } = props;
     // [cls[theme]] - стиль  : prop && [cls.square] - стиль : prop , тут мы передаем пропами значение и по этим значениям true/false применяются стили которые лежфт в button.module.scss
@@ -38,11 +40,13 @@ export const Button: FC<ButtonProps> = (props) => {
         [cls[theme]]: true,
         [cls.square]: square,
         [cls[size]]: true,
+        [cls.disabled]: disabled,
     };
     return (
         <button
             type="button"
             className={classNames(cls.Button, mods, [className])}
+            disabled={disabled}
             {...otherProps}
         >
             {children}

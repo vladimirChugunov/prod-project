@@ -3,12 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { ReducersMapObject } from 'redux';
+import { loginReducer } from 'features/AuthByUserName';
 import { StateSchema } from './StateSchema';
 
 // создаем функцию для переиспользования в сторибуке и тестов jest
 export function createReduxStore(initialState?: StateSchema) {
     const rootReducers: ReducersMapObject<StateSchema> = { //  ReducersMapObject // тип reducer  из configureStore
-        counter: counterReducer, user: userReducer,
+        counter: counterReducer, user: userReducer, loginForm: loginReducer,
     };
 
     // Настраиваем конфиги redux Toolkit

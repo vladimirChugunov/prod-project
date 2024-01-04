@@ -25,7 +25,7 @@ export const Input = memo((props: inputProps) => {
         autoFocus, // подставляем автофокус для поля, корректка сразу отображается в input
         ...otherProps
     } = props;
-    const ref = useRef<HTMLInputElement>(null); // указываем в dom дереве фокус напрямую, через реат не сделать
+    const ref = useRef<HTMLInputElement>(null); // указываем в dom дереве фокус напрямую, через реакт не сделать
     const [isFocused, setIsFocused] = useState(false);
     const [caretPosition, setCaretPosition] = useState(0);
 
@@ -50,7 +50,7 @@ export const Input = memo((props: inputProps) => {
         setIsFocused(true);
     };
 
-    // Внутри onSelect мы можем смотреть, какая часть текста выделенна, гду у нас находится корретка
+    // Внутри onSelect мы можем смотреть, какая часть текста выделенна, где у нас находится корретка
     const onSelect = (e: any) => {
         // получаем позицию корреки inputHtml и записываем ее в позицию нашей корретки
         setCaretPosition(e?.target?.selectionStart || 0); // selectionRange, c помощью них мы можем определфть какой текст выбран

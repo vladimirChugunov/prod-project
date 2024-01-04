@@ -9,5 +9,6 @@
   "unexpectedError": "Обновить страницу",
   "refreshPage": "Обновить страницу",
   "increment": "Прибавить",
-  "decrement": "Убавить"
+  "decrement": "Убавить",
+  "errorLogin": "Вы ввели неверное имя пользователя или пароль"
 }

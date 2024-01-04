@@ -1,6 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-
+# В переменные среды указать путь к папку с гитом в lunux
 #run: npm run build:prod
 #run: npm run lint:ts
 #run: npm run lint:scss

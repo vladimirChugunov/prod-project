@@ -9,5 +9,6 @@
   "unexpectedError": "unexpectedError",
   "refreshPage": "refreshPage",
   "increment": "Increment",
-  "decrement": "Decrement"
+  "decrement": "Decrement",
+  "errorLogin": "You entered an incorrect username or password"
 }

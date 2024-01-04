@@ -1,4 +1,8 @@
 export {
+    getUserData,
+} from './model/selectors/getUserData/getUserData';
+
+export {
     userReducer,
     userActions,
 }

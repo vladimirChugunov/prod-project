@@ -80,7 +80,7 @@ export const Modal = ({
         [cls.opened]: isOpen, //  применяем или не применяем стили по классам котрые лежат в Modal.module.scss
         [cls.isClosing]: isClosing,
     };
-    // если передан проп lazy и модалка не открыта, то вместо модалки возвращаем true
+    // если передан проп lazy и модалка не открыта, то вместо модалки возвращаем null
     if (lazy && !isMounted) {
         return null;
     }
