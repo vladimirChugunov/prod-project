@@ -5,6 +5,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
+import i18n from 'shared/config/i18n/i18n';
 import { loginByUserName } from '../../model/services/loginByUserName/loginByUserName';
 import { getLoginState } from '../../model/selectors/getLoginState/getLoginState';
 import { loginActions } from '../../model/slice/loginSlice';
@@ -39,7 +40,7 @@ export const LoginForm = ({ className }: LoginFormProps) => {
             className={classNames(cls.LoginForm, {}, [className])}
         >
             <Text title={t('authorizationForm')} />
-            {error && <Text text={error} theme={TextTheme.ERROR} />}
+            {error && <Text text={i18n.t('errorLogin')} theme={TextTheme.ERROR} />}
             <Input
                 label={t('userName')}
                 type="text"
