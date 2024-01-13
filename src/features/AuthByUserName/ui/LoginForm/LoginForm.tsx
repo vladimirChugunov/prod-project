@@ -6,22 +6,33 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import i18n from 'shared/config/i18n/i18n';
+import { DynamicModuleLoader, ReducerList } from 'shared/lib/components/DynamicModuleLoader';
+import { getLoginUserName } from '../../model/selectors/getLoginUserName/getLoginUserName';
+import {
+    getLoginPassword,
+} from '../../model/selectors/getLoginState/getLoginPassword/getLoginPassword';
+import { getLoginLoading } from '../../model/selectors/getLoginLoading/getLoginLoading';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { loginByUserName } from '../../model/services/loginByUserName/loginByUserName';
-import { getLoginState } from '../../model/selectors/getLoginState/getLoginState';
-import { loginActions } from '../../model/slice/loginSlice';
+import { loginActions, loginReducer } from '../../model/slice/loginSlice';
 import cls from './LoginForm.module.scss';
 
-interface LoginFormProps {
+export interface LoginFormProps {
     className?: string;
 
 }
 
-export const LoginForm = ({ className }: LoginFormProps) => {
+const initialReducers: ReducerList = {
+    loginForm: loginReducer,
+};
+
+const LoginForm = ({ className }: LoginFormProps) => {
     const { t } = useTranslation('auth');
     const dispatch = useDispatch();
-    const {
-        userName, password, error, isLoading,
-    } = useSelector(getLoginState);
+    const userName = useSelector(getLoginUserName);
+    const password = useSelector(getLoginPassword);
+    const isLoading = useSelector(getLoginLoading);
+    const error = useSelector(getLoginError);
 
     const onChangeUserName = useCallback((value: string) => {
         dispatch(loginActions.setUserName(value));
@@ -36,34 +47,41 @@ export const LoginForm = ({ className }: LoginFormProps) => {
     }, [dispatch, password, userName]);
 
     return (
-        <div
-            className={classNames(cls.LoginForm, {}, [className])}
+        <DynamicModuleLoader
+            reducers={initialReducers}
+            removeAfterUnmount
         >
-            <Text title={t('authorizationForm')} />
-            {error && <Text text={i18n.t('errorLogin')} theme={TextTheme.ERROR} />}
-            <Input
-                label={t('userName')}
-                type="text"
-                className={cls.input}
-                autoFocus
-                onChange={onChangeUserName}
-                value={userName}
-            />
-            <Input
-                label={t('password')}
-                type="text"
-                className={cls.input}
-                onChange={onChangePassword}
-                value={password}
-            />
-            <Button
-                theme={ButtonTheme.OUTLINE}
-                className={cls.loginBtn}
-                onClick={onLoginClick}
-                disabled={isLoading}
+            <div
+                className={classNames(cls.LoginForm, {}, [className])}
             >
-                {t('login')}
-            </Button>
-        </div>
+                <Text title={t('authorizationForm')} />
+                {error && <Text text={i18n.t('errorLogin')} theme={TextTheme.ERROR} />}
+                <Input
+                    label={t('userName')}
+                    type="text"
+                    className={cls.input}
+                    autoFocus
+                    onChange={onChangeUserName}
+                    value={userName}
+                />
+                <Input
+                    label={t('password')}
+                    type="text"
+                    className={cls.input}
+                    onChange={onChangePassword}
+                    value={password}
+                />
+                <Button
+                    theme={ButtonTheme.OUTLINE}
+                    className={cls.loginBtn}
+                    onClick={onLoginClick}
+                    disabled={isLoading}
+                >
+                    {t('login')}
+                </Button>
+            </div>
+        </DynamicModuleLoader>
     );
 };
+
+export default LoginForm;
