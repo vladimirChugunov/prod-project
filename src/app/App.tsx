@@ -14,7 +14,7 @@ function App() {
     useEffect(() => {
         dispatch(userActions.initAuthData());
     }, [dispatch]);
-
+    /* Suspense чтобы не падало приложение при подгрузки переводов */
     return (
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
