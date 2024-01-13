@@ -7,8 +7,12 @@ import { StateSchema } from './StateSchema';
 import { createReducerManager } from './reducerManager';
 
 // создаем функцию для переиспользования в сторибуке и тестов jest
-export function createReduxStore(initialState?: StateSchema) {
+export function createReduxStore(
+    initialState?: StateSchema,
+    asyncReducers?: ReducersMapObject<StateSchema>,
+) {
     const rootReducers: ReducersMapObject<StateSchema> = { //  ReducersMapObject // тип reducer  из configureStore
+        ...asyncReducers, // передаем ассинхронные редьюссеры, для StoreDecorator
         counter: counterReducer,
         user: userReducer,
     };
