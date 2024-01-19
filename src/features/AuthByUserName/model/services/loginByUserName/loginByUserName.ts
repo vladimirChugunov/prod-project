@@ -8,6 +8,8 @@ interface LoginByUserNameProps {
     password: string
 }
 
+// createAsyncThunk, это криейтор который после вызова возвращает action
+// происходит 3 вызова dispatch 1 при вызове loginByUserName
 export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, { rejectValue: string }>( // создаем thunk ассинхронный при помощи createAsyncThunk.
 // User : то что должно вернуться с бека, LoginByUserNameProps что передаем из нашей формы на клиенте в модалке. 3 аргумент типизация того, что возвращаем нам thunkAPI его функций
     'login/loginByUserName', // описание action, для девтулзов
@@ -19,8 +21,9 @@ export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, { re
                 throw new Error();
             }
             localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data)); // кладем данные в локал сторадж типо токен
+            // происходит 3 вызова dispatch 2 при изменении стейта
             thunkAPI.dispatch(userActions.setAuthData(response.data)); // заполняем стейт юзера возвращаемыми значениями с бека id, userName
-
+            // происходит 3 вызова dispatch 3 при return
             return response.data;
         } catch (e) {
             console.log(e);
