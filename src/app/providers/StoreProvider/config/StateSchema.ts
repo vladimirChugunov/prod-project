@@ -4,6 +4,8 @@ import { CounterSchema } from 'entities/Counter';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
 import { ProfileSchema } from 'entities/Profile';
+import { AxiosInstance } from 'axios';
+import { NavigateOptions, To } from 'react-router';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
@@ -25,4 +27,15 @@ export interface ReducerManager {
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager // указываем дополнительное поле, мы его сами добавили нужно расширить типы стора
+}
+
+// Тип для кастомных extra в thunkAPI.extra
+export interface ThunkExtraArg {
+    api: AxiosInstance
+    navigate: (to: To, options?: NavigateOptions) => void,
+}
+
+export interface ThunkConfig<T> {
+    rejectValue: T,
+    extra: ThunkExtraArg
 }

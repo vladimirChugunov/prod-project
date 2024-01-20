@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { DeepPartial } from '@reduxjs/toolkit';
 import { ReducersMapObject } from 'redux';
+import { useNavigate } from 'react-router-dom';
 import { StateSchema } from '../config/StateSchema';
 import { createReduxStore } from '../config/store';
 
@@ -17,10 +18,14 @@ export const StoreProvider = (props: StoreProviderProps) => {
         initialState,
         asyncReducers,
     } = props;
+    // Добавляем возможность навигации, в createAsyncThunk // для возможности добавления в extra аргумент для thinkApi
+    const navigate = useNavigate();
+
     // передаем созданный стор в провайдер
     const store = createReduxStore(
         initialState as StateSchema,
         asyncReducers as ReducersMapObject<StateSchema>,
+        navigate,
     );
 
     return (

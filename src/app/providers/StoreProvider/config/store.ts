@@ -3,6 +3,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { ReducersMapObject } from 'redux';
+
+import { $api } from 'shared/api/api';
+import { NavigateOptions, To } from 'react-router';
 import { StateSchema } from './StateSchema';
 import { createReducerManager } from './reducerManager';
 
@@ -10,6 +13,7 @@ import { createReducerManager } from './reducerManager';
 export function createReduxStore(
     initialState?: StateSchema,
     asyncReducers?: ReducersMapObject<StateSchema>,
+    navigate?: (to: To, options?: NavigateOptions) => void,
 ) {
     const rootReducers: ReducersMapObject<StateSchema> = { //  ReducersMapObject // тип reducer  из configureStore
         ...asyncReducers, // передаем ассинхронные редьюссеры, для StoreDecorator
@@ -20,10 +24,20 @@ export function createReduxStore(
     const reducerManager = createReducerManager(rootReducers); // createReducerManager ассинхронная подгрузка. передаем список корневых редьюсеров, тоесть всех которые у нас есть
 
     // Настраиваем конфиги redux Toolkit, тут создается стор
-    const store = configureStore<StateSchema>({ // Передаем общие типы из всех слайсов тип ReducersMapObject
+    const store = configureStore({ // Передаем общие типы из всех слайсов тип ReducersMapObject
         reducer: reducerManager.reduce, // тут передаем существующие в проекте редьюсеры
         devTools: __IS_DEV__, // отключаем devTools в продакшене
         preloadedState: initialState,
+        // у thunkAPI есть аргумент extra в которые мы можем положить вспомогательные функции,данные
+        // туда и будем помещать instance axios, для того чтобы не вызывать его в асинхронных запросах постоянно
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+            thunk: {
+                extraArgument: {
+                    api: $api, // передаем instance axios с базовым url
+                    navigate,
+                },
+            },
+        }),
     });
     // @ts-ignore
     store.reducerManager = reducerManager; //  добавляем в стор reducerManager

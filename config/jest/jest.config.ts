@@ -38,6 +38,7 @@ export default {
     // Обьект для обьявления глобальных переменных
     globals: {
         __IS_DEV__: true, // названеи переменной аналагично названию в webpack
+        __API__: '',
     },
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
