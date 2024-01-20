@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { memo, useCallback } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import i18n from 'shared/config/i18n/i18n';
 import { DynamicModuleLoader, ReducerList } from 'shared/lib/components/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { getLoginUserName } from '../../model/selectors/getLoginUserName/getLoginUserName';
 import {
     getLoginPassword,
@@ -19,16 +20,16 @@ import cls from './LoginForm.module.scss';
 
 export interface LoginFormProps {
     className?: string;
-
+    onSuccess: () => void
 }
 
 const initialReducers: ReducerList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = ({ className }: LoginFormProps) => {
+const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation('auth');
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const userName = useSelector(getLoginUserName);
     const password = useSelector(getLoginPassword);
     const isLoading = useSelector(getLoginLoading);
@@ -42,9 +43,12 @@ const LoginForm = ({ className }: LoginFormProps) => {
         dispatch(loginActions.setPassword(value));
     }, [dispatch]);
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUserName({ userName, password })); // передаем userName, password из useSelector(getLoginState)
-    }, [dispatch, password, userName]);
+    const onLoginClick = useCallback(async () => {
+        const result = await dispatch(loginByUserName({ userName, password })); // передаем userName, password из useSelector(getLoginState)
+        if (result.meta.requestStatus) {
+            onSuccess();
+        }
+    }, [dispatch, onSuccess, password, userName]);
 
     return (
         <DynamicModuleLoader
@@ -82,6 +86,6 @@ const LoginForm = ({ className }: LoginFormProps) => {
             </div>
         </DynamicModuleLoader>
     );
-};
+});
 
 export default LoginForm;

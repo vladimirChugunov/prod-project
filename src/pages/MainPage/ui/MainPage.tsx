@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Counter } from 'entities/Counter';
-import { Input } from 'shared/ui/input/Input';
 
-const MainPage = () => {
+const MainPage = memo(() => {
     const { t } = useTranslation();
-    const [value, setValue] = useState('');
-
-    const onChange = (val: string) => {
-        setValue(val);
-    };
+    // For counter
+    // const [value, setValue] = useState('');
+    //
+    // const onChange = (val: string) => {
+    //     setValue(val);
+    // };
 
     return (
         <div>
             {t('main')}
         </div>
     );
-};
+});
 
 export default MainPage;

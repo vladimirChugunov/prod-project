@@ -1,8 +1,9 @@
+import { AnyAction, EnhancedStore, Reducer } from '@reduxjs/toolkit';
+import { CombinedState, ReducersMapObject } from 'redux';
 import { CounterSchema } from 'entities/Counter';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
-import { AnyAction, EnhancedStore, Reducer } from '@reduxjs/toolkit';
-import { CombinedState, ReducersMapObject } from 'redux';
+import { ProfileSchema } from 'entities/Profile';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
@@ -10,6 +11,7 @@ export interface StateSchema {
     user: UserSchema
     // Асснихронные редьюсеры
     loginForm?: LoginSchema // опциональный для ассинхроной подгрузки
+    profile?: ProfileSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

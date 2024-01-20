@@ -17,7 +17,7 @@ export function createReduxStore(
         user: userReducer,
     };
     // Ассинхронные редьюсеры
-    const reducerManager = createReducerManager(rootReducers); // передаем список корневых редьюсеров, тоесть всех которые у нас есть
+    const reducerManager = createReducerManager(rootReducers); // createReducerManager ассинхронная подгрузка. передаем список корневых редьюсеров, тоесть всех которые у нас есть
 
     // Настраиваем конфиги redux Toolkit, тут создается стор
     const store = configureStore<StateSchema>({ // Передаем общие типы из всех слайсов тип ReducersMapObject
@@ -31,7 +31,9 @@ export function createReduxStore(
     return store;
 }
 
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'] // создаем тип диспатч, чтобы все типы для всех экшенов автоматически подтягивались
+
 // // Выведите типы RootState и AppDispatch из самого магазина.
 // export type RootState = ReturnType<typeof store.getState>
 // // Предполагаемый тип: {сообщения: PostsState, комментарии: CommentsState, пользователи: UsersState}
-// export type AppDispatch = typeof store.dispatch
+// export type AppDispatch = typeof store.dispatch  // без нашей функции враппера createReduxStore
