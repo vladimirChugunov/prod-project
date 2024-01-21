@@ -15,7 +15,7 @@ interface LoginByUserNameProps {
 export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, {
     rejectValue: string,
     extra: ThunkExtraArg
-}>( // User : то что должно вернуться с бека, LoginByUserNameProps что передаем из нашей формы на клиенте в модалке. 3 аргумент типизация того, что возвращаем нам thunkAPI его функций
+}>( // User  : то что должно вернуться с бека(тип), LoginByUserNameProps(тип) что передаем из нашей формы на клиенте в модалке. 3 аргумент типизация того, что возвращаем нам thunkAPI его функций
     'login/loginByUserName', // описание action, для девтулзов
     async (authData, thunkAPI) => { // thunkAPI внутри содержится Api самого Thunk с функциями: для обработки ошибок, вызова другого actions и другое  // authData = LoginByUserNameProps запрос на сервак
         const { extra, dispatch, rejectWithValue } = thunkAPI;
@@ -31,7 +31,7 @@ export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, {
             // происходит 3 вызова dispatch 3 при return
             // Редирект на /about после логина формы
             extra.navigate('/about');
-            return response.data;
+            return response.data; // данные которые мы вернули, потом измпользуем с slice
         } catch (e) {
             console.log(e);
             return rejectWithValue('error'); // вызываем из thunkAPI, rejectWithValue для обработки ошибки
