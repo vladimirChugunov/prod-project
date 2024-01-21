@@ -30,7 +30,7 @@ export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, {
             dispatch(userActions.setAuthData(response.data)); // заполняем стейт юзера возвращаемыми значениями с бека id, userName
             // происходит 3 вызова dispatch 3 при return
             // Редирект на /about после логина формы
-            extra.navigate('/about');
+            extra.navigate?.('/about');
             return response.data; // данные которые мы вернули, потом измпользуем с slice
         } catch (e) {
             console.log(e);

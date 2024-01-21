@@ -1,6 +1,5 @@
-import { getCounter } from 'entities/Counter/model/selectors/getCounter/getCounter';
-import { DeepPartial } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
+import { getCounter } from '../../../model/selectors/getCounter/getCounter';
 
 describe('getCounter', () => {
     // проверяем, что селектор возвращает тот учаток стейта который мы ожидаем

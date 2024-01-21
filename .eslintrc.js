@@ -57,6 +57,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error', // Проверка правила хуков
         'react-hooks/exhaustive-deps': 'error', // Проверка зависемомтей
         'no-param-reassign': 'off', // Даем возможность метять аргументы функции для редакс
+        'no-undef': 'off', // Запретить использование необъявленных переменных, если они не упомянуты в /*global */комментариях. /*global DeepPartial, a*/ везде коммент ставить нужно будет
     },
     globals: {
         __IS_DEV__: true,

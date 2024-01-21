@@ -1,8 +1,9 @@
 import React, {
+    MutableRefObject,
     ReactNode, useCallback, useEffect, useRef, useState,
 } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
-import { Portal } from 'shared/ui/Portal/Portal';
+import { classNames } from '../../lib/classNames/classNames';
+import { Portal } from '../Portal/Portal';
 import cls from './Modal.module.scss';
 
 interface ModalProps {
@@ -24,7 +25,7 @@ export const Modal = ({
 }: ModalProps) => {
     const [isClosing, setIsClosing] = useState(false);
     // <ReturnType<typeof setTimeout> получаем тип который возвращает setTimout
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
     const [isMounted, setIsMounted] = useState(false); // вмонтирована модалка в дом дерево или нет
 
     // Как только откроем модалку добавляем в дом дерево модалку
@@ -76,7 +77,7 @@ export const Modal = ({
         e.stopPropagation();
     };
 
-    const mods: Record<string, boolean> = {
+    const mods: Record<string, boolean | undefined> = {
         [cls.opened]: isOpen, //  применяем или не применяем стили по классам котрые лежат в Modal.module.scss
         [cls.isClosing]: isClosing,
     };
