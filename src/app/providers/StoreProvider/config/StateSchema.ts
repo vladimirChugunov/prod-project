@@ -35,7 +35,9 @@ export interface ThunkExtraArg {
     navigate?: (to: To, options?: NavigateOptions) => void,
 }
 
+// Для типизации ThunkAPI
 export interface ThunkConfig<T> {
     rejectValue: T,
     extra: ThunkExtraArg
+    state: StateSchema
 }

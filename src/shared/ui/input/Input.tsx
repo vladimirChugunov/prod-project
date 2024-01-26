@@ -1,17 +1,18 @@
 import React, {
     InputHTMLAttributes, memo, useEffect, useRef, useState,
 } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
 
-type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'>
+type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'readOnly'>
 
 interface inputProps extends HTMLInputProps {
     className?: string;
-    value?: string;
+    value?: string | number;
     onChange?: (value: string) => void
     label?: string;
-    autoFocus?: boolean
+    autoFocus?: boolean;
+    readonly?: boolean
 }
 
 // Обернул в memo, для исключения лишник перересовок
@@ -23,11 +24,14 @@ export const Input = memo((props: inputProps) => {
         type = 'text',
         label,
         autoFocus, // подставляем автофокус для поля, корректка сразу отображается в input
+        readonly,
         ...otherProps
     } = props;
     const ref = useRef<HTMLInputElement>(null); // указываем в dom дереве фокус напрямую, через реакт не сделать
     const [isFocused, setIsFocused] = useState(false);
     const [caretPosition, setCaretPosition] = useState(0);
+
+    const isCaretVisible = isFocused && !readonly;
 
     useEffect(() => {
         if (autoFocus) {
@@ -56,13 +60,17 @@ export const Input = memo((props: inputProps) => {
         setCaretPosition(e?.target?.selectionStart || 0); // selectionRange, c помощью них мы можем определфть какой текст выбран
     };
 
+    const mods: Mods = {
+        [cls.readonly]: readonly,
+    };
+
     return (
         <div
-            className={classNames(cls.InputWrapper, {}, [className])}
+            className={classNames(cls.InputWrapper, mods, [className])}
         >
             {label && (
                 <div className={cls.label}>
-                    {`${label} >`}
+                    {`${label}> `}
                 </div>
             )}
             <div className={cls.caretWrapper}>
@@ -76,9 +84,10 @@ export const Input = memo((props: inputProps) => {
                     onFocus={onFocus}
                     // Внутри onSelect мы можем смотреть, какая часть текста выделенна, гду у нас находится корретка
                     onSelect={onSelect}
+                    readOnly={readonly}
                     {...otherProps}
                 />
-                {isFocused && (
+                {isCaretVisible && (
                     <span
                         className={cls.caret}
                         style={{ left: `${caretPosition * 9}px` }} // сдвиг влево на caretPosition, это позиция корретки относительно текста, а 9px это ширина шрифта(одной буквы)

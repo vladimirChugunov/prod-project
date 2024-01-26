@@ -3,5 +3,15 @@
   "profile": "Profile",
   "edit": "Edit",
   "yourName": "Your name",
-  "yourLastName": "Your lastName"
+  "yourLastName": "Your lastName",
+  "profileError": "Profile error",
+  "refreshPage": "Try refreshing the page",
+  "cancel": "Cancel",
+  "save": "Save",
+  "age": "age",
+  "city": "city",
+  "username": "User Name",
+  "avatar": "Avatar",
+  "currency": "Currency",
+  "country": "Country"
 }

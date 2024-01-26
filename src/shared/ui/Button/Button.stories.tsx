@@ -8,7 +8,7 @@ const meta: Meta<typeof Button> = {
     title: 'shared/Button',
     component: Button,
     parameters: {
-        layout: 'centered',
+        layout: 'right',
     },
     tags: ['autodocs'],
     // More on argTypes: https://storybook.js.org/docs/api/argtypes
