@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import AvatarImg from 'shared/assets/tests/avatarStories.jpg';
 import { Avatar } from './Avatar';
-import AvatarImg from './avatarStories.jpg';
 
 const meta: Meta<typeof Avatar> = {
     // Путь и название папки в сторибуке

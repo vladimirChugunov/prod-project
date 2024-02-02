@@ -13,5 +13,10 @@
   "username": "User Name",
   "avatar": "Avatar",
   "currency": "Currency",
-  "country": "Country"
+  "country": "Country",
+  "noData": "No data",
+  "UserNameRequired": "Username Required",
+  "NameLastNameRequired": "Name and LastName Required",
+  "serverError": "Server error when saving",
+  "InvalidRegion": "Invalid region"
 }

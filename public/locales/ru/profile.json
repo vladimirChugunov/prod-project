@@ -13,5 +13,10 @@
   "username": "Имя пользователя",
   "avatar": "Аватарка",
   "currency": "Валюта",
-  "country": "Страна"
+  "country": "Страна",
+  "serverError": "Серверная ошибка при сохранении",
+  "InvalidRegion": "Некорректный Регион",
+  "NameLastNameRequired": "Имя и фамилия обязательны",
+  "UserNameRequired": "Имя юзера обязательно",
+  "noData": "Данные не указанны"
 }

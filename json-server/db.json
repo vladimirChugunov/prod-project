@@ -26,13 +26,13 @@
     }
   ],
   "profile": {
-    "first": "Владимир1",
-    "lastname": "Чугунов1",
-    "age": 251,
+    "first": "Владимир",
+    "lastname": "Чугунов",
+    "age": 2,
     "currency": "EUR",
     "country": "Russia",
-    "city": "Sankt-Petersburg1",
-    "username": "admin1",
+    "city": "Sankt-Petersburg",
+    "username": "admin",
     "avatar": "https://pic.rutubelist.ru/user/3b/27/3b2758ad5492a76b578f7ee072e4e894.jpg"
   }
 }

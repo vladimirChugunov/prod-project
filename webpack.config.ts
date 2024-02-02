@@ -23,6 +23,7 @@ export default (env: BuildEnv) => {
         isDev,
         port: PORT,
         apiUrl,
+        project: 'frontend', // глобальная переменная для разделения сред ситорибук и тд..
     });
 
     return config;

@@ -20,6 +20,7 @@ export const profileSlice = createSlice({
         cancelEdit: (state) => { // сбрасываем все то что навводили внутри инпута
             state.readonly = true; // при нажатии кнопки отмена мы возвращаем состояние readonly
             state.form = state.data; // возвращаем значения которое мы получили с сервера
+            state.validate = undefined;
         },
         updateProfile: (state, action: PayloadAction<Profile>) => {
             state.form = {
@@ -49,7 +50,7 @@ export const profileSlice = createSlice({
                 state.error = action.payload;
             })
             .addCase(updateProfileData.pending, (state) => {
-                state.error = undefined;
+                state.validate = undefined;
                 state.isLoading = true;
             })
             .addCase(updateProfileData.fulfilled, (state, action: PayloadAction<Profile>) => {
@@ -57,10 +58,11 @@ export const profileSlice = createSlice({
                 state.data = action.payload;
                 state.form = action.payload;
                 state.readonly = true;
+                state.validate = undefined;
             })
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload;
+                state.validate = action.payload;
             });
     },
 });

@@ -4,7 +4,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { DynamicModuleLoader, ReducerList } from 'shared/lib/components/DynamicModuleLoader';
 import {
     fetchProfileData,
-    getProfileError,
+    getProfileErrors,
     getProfileForm,
     getProfileLoading,
     getProfileReadonly,
@@ -16,6 +16,8 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
+import { Text, TextTheme } from 'shared/ui/Text/Text';
+import { ValidateProfileError } from 'entities/Profile/model/types/profile';
 import { ProfilePageHeader } from '../ui/ProfilePageHeader/ProfilePageHeader';
 
 const reducers: ReducerList = {
@@ -31,11 +33,20 @@ const ProfilePage = memo(({ className }: ProfilePageProps) => {
     const dispatch = useAppDispatch();
     const formData = useSelector(getProfileForm);
     const isLoading = useSelector(getProfileLoading);
-    const error = useSelector(getProfileError);
+    const error = useSelector(getProfileErrors);
     const readonly = useSelector(getProfileReadonly);
+    const validateErrors = useSelector(getProfileErrors);
 
+    const validateErrorTranslate = {
+        [ValidateProfileError.INCORRECT_USER_DATA]: t('NameLastNameRequired'),
+        [ValidateProfileError.SERVER_ERROR]: t('serverError'),
+        [ValidateProfileError.INCORRECT_USER_NAME]: t('UserNameRequired'),
+        [ValidateProfileError.NO_DATA]: t('noData'),
+    };
     useEffect(() => {
-        dispatch(fetchProfileData());
+        if (__PROJECT__ !== 'storybook') {
+            dispatch(fetchProfileData());
+        }
     }, [dispatch]);
 
     const onChangeFirstName = useCallback((value?: string) => {
@@ -78,10 +89,17 @@ const ProfilePage = memo(({ className }: ProfilePageProps) => {
                 className={classNames('', {}, [className])}
             >
                 <ProfilePageHeader />
+                {validateErrors?.length && validateErrors.map((err) => (
+                    <Text
+                        key={err}
+                        theme={TextTheme.ERROR}
+                        text={validateErrorTranslate[err]}
+                    />
+                ))}
                 <ProfileCard
                     data={formData}
                     isLoading={isLoading}
-                    error={error}
+                    // error={error}
                     readonly={readonly}
                     onChangeFirstName={onChangeFirstName}
                     onChangeLastName={onChangeLastName}
