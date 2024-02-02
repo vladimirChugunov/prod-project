@@ -2,12 +2,16 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { BuildOptions } from './types/config';
 
+// Управляем файлами которые не импортируются в js отличные от js / html scc итд ...
+// Можем писать свои плагины и подключать стороние
 export function buildPlugins({
     paths, isDev, apiUrl, project,
 }: BuildOptions): webpack.WebpackPluginInstance[] {
     const plugins = [
+        // Указываем что будем обрабатывать HTML с помощью плагина
         new HtmlWebpackPlugin({
             template: paths.html,
         }),
@@ -23,6 +27,7 @@ export function buildPlugins({
         }),
     ];
     if (isDev) {
+        plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new webpack.HotModuleReplacementPlugin());
         plugins.push(new BundleAnalyzerPlugin({
             openAnalyzer: false,

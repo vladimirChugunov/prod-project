@@ -16,6 +16,9 @@ export function useTheme(): UseThemeResult {
             newTheme = Theme.LIGHT;
             break;
         case Theme.LIGHT:
+            newTheme = Theme.ORANGE;
+            break;
+        case Theme.ORANGE:
             newTheme = Theme.DARK;
             break;
         default:
@@ -23,7 +26,7 @@ export function useTheme(): UseThemeResult {
         }
         setTheme?.(newTheme);
         document.body.className = newTheme;
-        localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
+        localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme); // при обновлении страницы не будет слетать тема, можно в ссессион сторадж еще положить
     };
 
     return {

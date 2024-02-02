@@ -46,6 +46,7 @@ export const Button = memo((props: ButtonProps) => {
         [cls[size]]: true,
         [cls.disabled]: disabled,
     };
+
     return (
         <button
             type="button"

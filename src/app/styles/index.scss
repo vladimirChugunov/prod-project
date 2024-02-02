@@ -1,23 +1,26 @@
+// импорт тем // точка входа для стилей
 @import "reset";
 @import "variables/global";
 @import "themes/normal";
 @import "themes/dark";
+@import "themes/orange";
 
 body {
-    font: var(--font-m);
-    color: var(--primary-color);
+  font: var(--font-m);
+  color: var(--primary-color);
 }
 
 .app {
-    background: var(--bg-color);
-    min-height: 100vh;
+  background: var(--bg-color); // сюда добавляем значение из переменной которое меняется при изменении стилей (при разных стилях разные цвета в переменную добавляются)
+  color: var(--primary-color); // цвет шрифта задаем
+  min-height: 100vh;
 }
 
 .content-page {
-    display: flex;
+  display: flex;
 }
 
 .page-wrapper {
-    flex-grow: 1;
-    padding: 20px;
+  flex-grow: 1;
+  padding: 20px;
 }

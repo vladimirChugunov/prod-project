@@ -3,12 +3,8 @@ import AvatarImg from 'shared/assets/tests/avatarStories.jpg';
 import { Avatar } from './Avatar';
 
 const meta: Meta<typeof Avatar> = {
-    // Путь и название папки в сторибуке
     title: 'shared/Avatar',
     component: Avatar,
-    // parameters: {
-    //     layout: 'centered',
-    // },
     tags: ['autodocs'],
     argTypes: {},
     args: {},

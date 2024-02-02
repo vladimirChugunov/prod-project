@@ -1,8 +1,9 @@
+// Тут мы задаем шаблоные переменные, чтобы при их изменении менялось по всему проету стили, размер текста, цвет и тд...
 .app_light_theme {
-    --bg-color: #090949;
-    --inverted-bg-color: #e8e8ea;
-    --primary-color: #04ff04;
-    --secondary-color: #049604;
-    --inverted-primary-color: #0232c2;
-    --inverted-secondary-color: #0452ff;
+  --bg-color: #090949; // цвет фона
+  --inverted-bg-color: #e8e8ea; // перевернутый выбранной теме фон
+  --primary-color: #04ff04; // цвет шрифта по всему приложению (заголовок)
+  --secondary-color: #049604; // второстепенный цвет (Описание)
+  --inverted-primary-color: #0232c2; // перевернутый выбранной теме текст
+  --inverted-secondary-color: #0452ff; // перевернутый выбранной теме текст
 }
