@@ -2,6 +2,8 @@ export {
     getUserData,
 } from './model/selectors/getUserData/getUserData';
 
+export { getUserInited } from './model/selectors/getUserInited/getUserInited';
+
 export {
     userReducer,
     userActions,

@@ -5,4 +5,5 @@ export interface User {
 
 export interface UserSchema {
     authData?: User;
+    _inited: boolean // _ указывает на то, что флаг нельзя менять
 }

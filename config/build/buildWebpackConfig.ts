@@ -16,6 +16,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
             filename: '[name].[contenthash].js',
             path: paths.build,
             clean: true,
+            publicPath: '/', // тобы devServer понимал где находиться главный index.html/ publicPath: '/' должен указывать корень проекта // откуда на сервере загрузить пакет // тначе он из билда будет брать путь а там  path: paths.build
         },
         plugins: buildPlugins(options),
         module: {

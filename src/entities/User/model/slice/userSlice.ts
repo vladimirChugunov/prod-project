@@ -4,7 +4,9 @@ import { USER_LOCALSTORAGE_KEY } from 'shared/const/localStorage';
 import { User, UserSchema } from '../type/userSchema';
 
 // Начальное значние и применяем тип из modal/type
-const initialState: UserSchema = {};
+const initialState: UserSchema = {
+    _inited: false,
+};
 
 export const userSlice = createSlice({
     name: 'counter',
@@ -18,9 +20,11 @@ export const userSlice = createSlice({
             if (user) { // если есть user в колкал сторадж кладем его в стейт
                 state.authData = JSON.parse(user);
             }
+            state._inited = true;
         },
         logout: (state) => { // если пользователь закрыл страницу и открыл, то берем данные из локал сторадж и кладем их обратно
             state.authData = undefined; // очищаем стейт
+            state._inited = false;
             localStorage.removeItem(USER_LOCALSTORAGE_KEY); // Очищаем локал стораж
         },
     },
