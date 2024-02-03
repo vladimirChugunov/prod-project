@@ -27,7 +27,7 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
     useEffect(() => {
         Object.entries(reducers).forEach(([name, reducer]) => {
             // Указываем ключ для добавления и 2 аргументом сам редьюсер
-            store.reducerManager.add(name as StateSchemaKey, reducer); // редьюсер будет подгружаться толькоо с самим компонетом
+            store.reducerManager.add(name as StateSchemaKey, reducer); // редьюсер будет подгружаться только с самим компонетом
             dispatch({ type: `@INIT ${name} reducer` }); // Для логирования в  reactDevTools, монтирование
         });
         return () => {

@@ -13,12 +13,18 @@ export enum TextAlign {
     CENTER = 'center',
 }
 
+export enum TextAlignSize {
+    M = 'size_m',
+    L = 'size_l',
+}
+
 interface TextProps {
     className?: string;
     title?: string;
     text?: string;
     theme?: TextTheme
     align?: TextAlign
+    size?: TextAlignSize
 }
 
 export const Text = memo(({
@@ -27,10 +33,12 @@ export const Text = memo(({
     text,
     theme = TextTheme.PRIMARY,
     align = TextAlign.CENTER,
+    size = TextAlignSize.L,
 }: TextProps) => {
     const mods: Mods = {
         [cls[theme]]: true,
         [cls[align]]: true,
+        [cls[size]]: true,
     };
 
     return (

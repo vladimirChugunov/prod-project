@@ -1,11 +1,12 @@
 import { AnyAction, EnhancedStore, Reducer } from '@reduxjs/toolkit';
 import { CombinedState, ReducersMapObject } from 'redux';
+import { AxiosInstance } from 'axios';
+import { NavigateOptions, To } from 'react-router';
 import { CounterSchema } from 'entities/Counter';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
 import { ProfileSchema } from 'entities/Profile';
-import { AxiosInstance } from 'axios';
-import { NavigateOptions, To } from 'react-router';
+import { ArticleDetailsSchema } from 'entities/Article';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
@@ -14,6 +15,7 @@ export interface StateSchema {
     // Асснихронные редьюсеры
     loginForm?: LoginSchema // опциональный для ассинхроной подгрузки
     profile?: ProfileSchema
+    articleDetails?: ArticleDetailsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

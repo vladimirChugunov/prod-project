@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Theme } from 'app/providers/ThemeProvider';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
-import { Text, TextTheme } from '../Text/Text';
+import { Text, TextAlignSize, TextTheme } from '../Text/Text';
 
 const meta: Meta<typeof Text> = {
     // Путь и название папки в сторибуке
@@ -66,3 +66,19 @@ export const onlyTextDark: Story = {
     },
 };
 PrimaryDark.decorators = [ThemeDecorator(Theme.DARK)];
+
+export const SizeL: Story = {
+    args: {
+        title: 'Title Lorem ipsum',
+        text: 'Description Description Description Description Description',
+        size: TextAlignSize.L,
+    },
+};
+
+export const SizeM: Story = {
+    args: {
+        title: 'Title Lorem ipsum',
+        text: 'Description Description Description Description Description',
+        size: TextAlignSize.M,
+    },
+};
