@@ -3,13 +3,17 @@ import { Suspense } from 'react';
 import { StateSchema, StoreProvider } from 'app/providers/StoreProvider';
 import { loginReducer } from 'features/AuthByUserName/model/slice/loginSlice';
 import { profileReducer } from 'entities/Profile';
+import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetailsSlice';
 import { ReducerList } from '../../../lib/components/DynamicModuleLoader';
 
 const defaultAsyncReducers: ReducerList = {
-    loginForm: loginReducer,
-    profile: profileReducer,
+    loginForm: loginReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
+    profile: profileReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
+    articleDetails: articleDetailsReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
+    // новый редюессер
 };
 
+// Нужен для работы со стором в сторибуке!!! Не забываем в компонете приложения отключать запрос на сервер при просморе компонета через сторибук! __PROJECT__ !== 'storybook'
 export const StoreDecorator = (
     initialState: DeepPartial<StateSchema>,
     asyncReducers?: ReducerList,

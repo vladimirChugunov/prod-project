@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { Text, TextAlign } from 'shared/ui/Text/Text';
 import cls from './ArticleTextBlockComponent.module.scss';
 import { ArticleTextBlock } from '../../model/types/article';
 
@@ -17,8 +18,11 @@ export const ArticleTextBlockComponent = memo(({ className, block }: ArticleText
             className={classNames(cls.ArticleTextBlockComponent, {}, [className])}
         >
             {block.title && (
-                <Text title={block.title} class={cls.title} />
+                <Text title={block.title} className={cls.title} />
             )}
+            {block.paragraphs.map((paragraph) => (
+                <Text key={paragraph} text={paragraph} className={cls.paragraph} align={TextAlign.LEFT} />
+            ))}
         </div>
     );
 });

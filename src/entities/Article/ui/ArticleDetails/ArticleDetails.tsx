@@ -36,15 +36,16 @@ export const ArticleDetails = memo(({ className, id }: ArticleDetailsProps) => {
     const error = useSelector(articleDetailsError);
     const article = useSelector(articleDetailsData);
     // {article?.blocks.map(renderBlock)} передаем функцию в map renderBlock. Блок из массива article?.blocks будет попадать в коллбек renderBlock  и отрисовыватся выбранный по свичу блок
+    // Передаем ключ так как ниже мы мапаем renderBlock
     const renderBlock = useCallback(
         (block: ArticleBlock) => {
             switch (block.type) {
             case ArticleBlockType.CODE:
-                return <ArticleCodeBlockComponent />;
+                return <ArticleCodeBlockComponent key={block.id} className={cls.block} block={block} />;
             case ArticleBlockType.TEXT:
-                return <ArticleTextBlockComponent />;
+                return <ArticleTextBlockComponent key={block.id} className={cls.block} block={block} />;
             case ArticleBlockType.IMAGE:
-                return <ArticleImageBlockComponent />;
+                return <ArticleImageBlockComponent key={block.id} className={cls.block} block={block} />;
             default:
                 return null;
             }
@@ -53,7 +54,9 @@ export const ArticleDetails = memo(({ className, id }: ArticleDetailsProps) => {
     );
 
     useEffect(() => {
-        dispatch(fetchArticleById(id));
+        if (__PROJECT__ !== 'storybook') {
+            dispatch(fetchArticleById(id));
+        }
     }, [dispatch, id]);
 
     let content;

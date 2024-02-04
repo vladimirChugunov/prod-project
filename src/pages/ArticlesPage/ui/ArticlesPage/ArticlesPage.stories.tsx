@@ -8,7 +8,6 @@ const meta: Meta<typeof ArticlesPage> = {
     argTypes: {},
     args: {},
 };
-
 export default meta;
 
 type Story = StoryObj<typeof ArticlesPage>;
