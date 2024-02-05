@@ -3,5 +3,7 @@
   "articleDetails": "Article Details",
   "articleNotFound": "Article not found",
   "errorPage": "There was an error loading the article",
-  "comment": "Comment"
+  "comment": "Comment",
+  "commentText": "Enter comment text",
+  "send": "Send"
 }

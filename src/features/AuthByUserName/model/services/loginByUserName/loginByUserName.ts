@@ -21,7 +21,7 @@ export const loginByUserName = createAsyncThunk<User, LoginByUserNameProps, {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
         try {
             const response = await extra.api.post<User>('/login', authData); // отправляем запрос на сервер с полями userName и password, <User> типизируем ответ с сервера
-
+            console.log(response);
             if (!response.data) { // если с сервера ничего не вернулось обрабатываем ошибку
                 throw new Error();
             }

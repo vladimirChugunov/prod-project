@@ -10,6 +10,7 @@ import { ArticleDetailsSchema } from 'entities/Article';
 import {
     ArticleDetailsCommentsSchema,
 } from 'pages/ArticleDetailsPage';
+import { AddCommentFormSchema } from 'features/addCommentForm';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
@@ -20,6 +21,7 @@ export interface StateSchema {
     profile?: ProfileSchema
     articleDetails?: ArticleDetailsSchema
     ArticleDetailsComments?: ArticleDetailsCommentsSchema
+    addCommentForm?: AddCommentFormSchema
 }
 
 export type StateSchemaKey = keyof StateSchema
