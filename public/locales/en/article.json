@@ -2,5 +2,6 @@
   "articlePage": "Article Page",
   "articleDetails": "Article Details",
   "articleNotFound": "Article not found",
-  "errorPage": "There was an error loading the article"
+  "errorPage": "There was an error loading the article",
+  "comment": "Comment"
 }

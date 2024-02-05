@@ -32,7 +32,7 @@ export const Text = memo(({
     title,
     text,
     theme = TextTheme.PRIMARY,
-    align = TextAlign.CENTER,
+    align = TextAlign.LEFT,
     size = TextAlignSize.L,
 }: TextProps) => {
     const mods: Mods = {

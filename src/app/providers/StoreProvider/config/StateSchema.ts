@@ -7,6 +7,9 @@ import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
 import { ProfileSchema } from 'entities/Profile';
 import { ArticleDetailsSchema } from 'entities/Article';
+import {
+    ArticleDetailsCommentsSchema,
+} from 'pages/ArticleDetailsPage';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
@@ -16,6 +19,7 @@ export interface StateSchema {
     loginForm?: LoginSchema // опциональный для ассинхроной подгрузки
     profile?: ProfileSchema
     articleDetails?: ArticleDetailsSchema
+    ArticleDetailsComments?: ArticleDetailsCommentsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema
