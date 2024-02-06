@@ -3,7 +3,7 @@ import { Comment } from 'entities/Comment';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { getUserData } from 'entities/User';
 import { articleDetailsData } from 'entities/Article';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+
 import {
     fetchCommentsByArticleId,
 } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';

@@ -13,7 +13,7 @@ export const Avatar = memo(({
     className,
     src,
     size,
-    alt = 'page',
+    alt = 'Avatar',
 }: AvatarProps) => {
     const mods: Mods = {};
 

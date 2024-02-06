@@ -7,7 +7,7 @@ import { Input } from 'shared/ui/input/Input';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import i18n from 'shared/config/i18n/i18n';
 import { DynamicModuleLoader, ReducerList } from 'shared/lib/components/DynamicModuleLoader';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLoginUserName } from '../../model/selectors/getLoginUserName/getLoginUserName';
 import {
     getLoginPassword,

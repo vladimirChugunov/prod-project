@@ -4,7 +4,7 @@ import { Comment } from 'entities/Comment';
 import { getUserData } from 'entities/User';
 import { articleDetailsData } from 'entities/Article';
 import { addCommentFormAction } from 'features/addCommentForm/model/slice/AddCommentFormSlice';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addCommentFormText } from '../../model/selector/addCommentFormSelectors';
 
 export const sendComment = createAsyncThunk<Comment, void, ThunkConfig<string>>(

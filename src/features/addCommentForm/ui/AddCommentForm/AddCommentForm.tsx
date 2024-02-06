@@ -4,7 +4,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Input } from 'shared/ui/input/Input';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useCallback } from 'react';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { DynamicModuleLoader, ReducerList } from 'shared/lib/components/DynamicModuleLoader';
 import { addCommentFormError, addCommentFormText } from '../../model/selector/addCommentFormSelectors';
 import cls from './AddCommentForm.module.scss';

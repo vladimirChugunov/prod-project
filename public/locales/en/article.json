@@ -5,5 +5,7 @@
   "errorPage": "There was an error loading the article",
   "comment": "Comment",
   "commentText": "Enter comment text",
-  "send": "Send"
+  "send": "Send",
+  "readMore": "Read more...",
+  "backToList": "Back to list"
 }
