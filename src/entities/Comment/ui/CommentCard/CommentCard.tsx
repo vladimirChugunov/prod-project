@@ -30,6 +30,10 @@ export const CommentCard = (props: CommentCardProps) => {
         );
     }
 
+    if (!comment) {
+        return null;
+    }
+
     return (
         <div
             className={classNames(cls.CommentCard, {}, [className])}

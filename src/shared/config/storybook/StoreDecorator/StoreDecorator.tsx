@@ -4,12 +4,14 @@ import { StateSchema, StoreProvider } from 'app/providers/StoreProvider';
 import { loginReducer } from 'features/AuthByUserName/model/slice/loginSlice';
 import { profileReducer } from 'entities/Profile';
 import { articleDetailsReducer } from 'entities/Article/model/slice/articleDetailsSlice';
+import { addCommentFormReducer } from 'features/addCommentForm/model/slice/AddCommentFormSlice';
 import { ReducerList } from '../../../lib/components/DynamicModuleLoader';
 
 const defaultAsyncReducers: ReducerList = {
     loginForm: loginReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
     profile: profileReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
     articleDetails: articleDetailsReducer, // не забываем добавлять вновь добавленные ассинхронные редьюссеры
+    addCommentForm: addCommentFormReducer,
     // новый редюессер
 };
 
