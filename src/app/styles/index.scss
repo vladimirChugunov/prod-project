@@ -22,13 +22,13 @@ body {
   display: flex;
 }
 
-.page-wrapper {
-  flex-grow: 1;
-  padding: 20px 20px 20px 40px;
-
-  //  calc() - это функция CSS, которая даёт возможность рассчитать значения свойств CSS во время их
-  //  определения. var(--navbar-height) - 50px отнимаем высоту navBar
-  height: calc(100vh - var(--navbar-height));
-  overflow-y: auto;
-  flex-shrink: 100;
-}
+//.page-wrapper {
+//  flex-grow: 1;
+//  padding: 20px 20px 20px 40px;
+//
+//  //  calc() - это функция CSS, которая даёт возможность рассчитать значения свойств CSS во время их
+//  //  определения. var(--navbar-height) - 50px отнимаем высоту navBar
+//  height: calc(100vh - var(--navbar-height));
+//  overflow-y: auto;
+//  flex-shrink: 100;
+//}

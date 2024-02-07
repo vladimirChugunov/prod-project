@@ -8,11 +8,12 @@ import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEf
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ArticleViewSelector } from 'features/ArticleViewSelector';
 import { ArticleView } from 'entities/Article';
+import { Page } from 'shared/ui/Page/Page';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import {
     articlesPageError,
     articlesPageIsLoading,
-    articlesPageView,
+    articlesPageView, getArticlesPageHasMore, getArticlesPageNum,
 } from '../../model/selectors/ArticlesPageSelectors';
 import { ArticlePageActions, ArticlePageReducer, getArticles } from '../../model/slices/articlePageSlice';
 import cls from './ArticlesPage.module.scss';
@@ -28,6 +29,8 @@ const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
     // тут только нормальщованные данные статей по id
     const articles = useSelector(getArticles.selectAll);
     const isLoading = useSelector(articlesPageIsLoading);
+    const hasMore = useSelector(getArticlesPageHasMore);
+    const page = useSelector(getArticlesPageNum);
     const error = useSelector(articlesPageError);
     const view = useSelector(articlesPageView); // скорее его переносить
     const reducer: ReducerList = {
@@ -38,21 +41,35 @@ const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
         dispatch(ArticlePageActions.stateView(view));
     }, [dispatch]);
 
+    const onLoadNextPart = useCallback(() => {
+        if (hasMore && !isLoading) {
+            dispatch(ArticlePageActions.statePage(page + 1));
+            dispatch(fetchArticlesList({
+                page: page + 1,
+            }));
+        }
+    }, [dispatch, hasMore, isLoading, page]);
+
     useInitialEffect(() => {
-        dispatch(fetchArticlesList());
         dispatch(ArticlePageActions.initSate());
+        dispatch(fetchArticlesList({
+            page,
+        }));
     });
 
     return (
         <DynamicModuleLoader reducers={reducer} removeAfterUnmount>
-            <div className={classNames(cls.ArticlesPage, {}, [className])}>
+            <Page
+                className={classNames(cls.ArticlesPage, {}, [className])}
+                onScrollEnd={onLoadNextPart}
+            >
                 <ArticleViewSelector view={view} onViewClick={onViewClick} />
                 <ArticleList
                     view={view}
                     articles={articles}
                     isLoading={isLoading}
                 />
-            </div>
+            </Page>
         </DynamicModuleLoader>
     );
 });

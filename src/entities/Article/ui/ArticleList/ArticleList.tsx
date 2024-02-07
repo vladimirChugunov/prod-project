@@ -23,17 +23,12 @@ export const ArticleList = (props: ArticleListProps) => {
     } = props;
     const { t } = useTranslation();
     // Отрисовываем слелетон стольок раз сколько у нас статей для маленьких 9, больших три
-    if (isLoading) {
-        return (
-            <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
-                {new Array(view === ArticleView.SMALL ? 9 : 3)
-                    .fill(0)
-                    .map((item, index) => (
-                        <ArticleListItemSkeleton className={cls.card} view={item} key={index} />
-                    ))}
-            </div>
-        );
-    }
+
+    const getSkeletons = (view: ArticleView) => new Array(view === ArticleView.SMALL ? 9 : 3)
+        .fill(0)
+        .map((item, index) => (
+            <ArticleListItemSkeleton className={cls.card} key={index} view={view} />
+        ));
 
     const renderArticle = (article: Article) => (
         <ArticleListItems
@@ -49,6 +44,7 @@ export const ArticleList = (props: ArticleListProps) => {
             {articles.length > 0
                 ? articles.map(renderArticle)
                 : null}
+            {isLoading && getSkeletons(view)}
         </div>
     );
 };

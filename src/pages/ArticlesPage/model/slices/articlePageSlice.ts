@@ -23,14 +23,21 @@ const ArticlePageSlice = createSlice({
         ids: [],
         entities: {},
         view: ArticleView.SMALL,
+        page: 1,
+        hasMore: false,
     }), // передаем initial state адампторы в которым мы получаем id
     reducers: {
         stateView: (state, action: PayloadAction<ArticleView>) => {
             state.view = action.payload;
             localStorage.setItem(ARTICLE_VIEW_LOCALSTORAGE, action.payload);
         },
+        statePage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload;
+        },
         initSate: (state) => {
-            state.view = localStorage.getItem(ARTICLE_VIEW_LOCALSTORAGE) as ArticleView;
+            const view = localStorage.getItem(ARTICLE_VIEW_LOCALSTORAGE) as ArticleView;
+            state.view = view;
+            state.limit = view === ArticleView.BIG ? 4 : 14;
         },
     },
     extraReducers: (builder) => {
@@ -46,7 +53,8 @@ const ArticlePageSlice = createSlice({
             ) => {
                 state.isLoading = false;
                 // сам добавить id сам нормальзует данные и добавит entities
-                articlesAdapter.setAll(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт
+                articlesAdapter.addMany(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт addMany(Добавляем в конец данные)
+                state.hasMore = action.payload.length > 0; // если с сервера прилетел хотябы один массив значит на сервере данные есть
             })
             .addCase(fetchArticlesList.rejected, (state, action) => {
                 state.isLoading = false;

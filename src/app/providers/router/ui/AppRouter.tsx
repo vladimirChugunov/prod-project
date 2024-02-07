@@ -8,9 +8,7 @@ const AppRouter = () => {
     const renderWithWrapper = useCallback((route: AppRoutersProps) => { // вункция высшего порядка, принимает функцию и возвращает функцию
         const element = (
             <Suspense fallback={<PageLoader />}>
-                <div className="page-wrapper">
-                    {route.element}
-                </div>
+                {route.element}
             </Suspense>
         );
         return (
