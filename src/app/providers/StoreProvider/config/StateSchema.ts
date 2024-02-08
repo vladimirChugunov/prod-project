@@ -9,11 +9,13 @@ import { ArticleDetailsSchema } from 'entities/Article';
 import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
 import { ArticlesPageSchema } from 'pages/ArticlesPage';
+import { SaveScrollSchema } from 'pages/SaveScroll';
 
 // Тут объеденяем все типы из созданых слайсов, общий тип, плюс есть понятное описание
 export interface StateSchema {
   counter: CounterSchema;
   user: UserSchema;
+  saveScroll: SaveScrollSchema;
   // Асснихронные редьюсеры
   loginForm?: LoginSchema; // опциональный для ассинхроной подгрузки
   profile?: ProfileSchema;

@@ -6,6 +6,7 @@ import { CombinedState, ReducersMapObject } from 'redux';
 
 import { $api } from 'shared/api/api';
 import { NavigateOptions, To } from 'react-router';
+import { saveScrollReducer } from 'pages/SaveScroll';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
 import { createReducerManager } from './reducerManager';
 
@@ -19,6 +20,7 @@ export function createReduxStore(
         ...asyncReducers, // передаем ассинхронные редьюссеры, для StoreDecorator
         counter: counterReducer,
         user: userReducer,
+        saveScroll: saveScrollReducer,
     };
     // Ассинхронные редьюсеры
     const reducerManager = createReducerManager(rootReducers); // createReducerManager ассинхронная подгрузка. передаем список корневых редьюсеров, тоесть всех которые у нас есть
