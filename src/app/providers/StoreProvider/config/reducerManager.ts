@@ -1,11 +1,13 @@
 import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
 import { ReducersMapObject } from 'redux';
 import { StateSchema } from 'app/providers/StoreProvider';
-import { ReducerManager, StateSchemaKey } from './StateSchema';
+import { MountedReducers, ReducerManager, StateSchemaKey } from './StateSchema';
 
 // На вход принимаем дефолтные редьюсеры
 // eslint-disable-next-line max-len
-export function createReducerManager(initialReducers: ReducersMapObject<StateSchema>): ReducerManager {
+export function createReducerManager(
+    initialReducers: ReducersMapObject<StateSchema>,
+): ReducerManager {
     // Создаем корневой редьюсер
     const reducers = { ...initialReducers };
     // Добавляем редьюсеры в нашу функцию
@@ -13,10 +15,13 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
 
     // Сюда добавляем редьюсеры для удаления если они нам не нужны в ассинхронной подгрузке
     let keysToRemove: Array<StateSchemaKey> = [];
+    // Обьект с монтированными редьюссерами
+    const mountedReducers: MountedReducers = {};
 
     return {
-        // Возвращаем редьюсеры
+    // Возвращаем редьюсеры
         getReducerMap: () => reducers,
+        getMountedReducers: () => mountedReducers,
         // Классическая функция редьюсер
         reduce: (state: StateSchema, action: AnyAction) => {
             if (keysToRemove.length > 0) {
@@ -29,13 +34,14 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
             return combinedReducer(state, action);
         },
         // Добавляем редьюсер по ключу
-        add: (key: StateSchemaKey, reducer: Reducer) => { // Reducer тип из редакс
+        add: (key: StateSchemaKey, reducer: Reducer) => {
+            // Reducer тип из редакс
             if (!key || reducers[key]) {
                 return;
             }
 
             reducers[key] = reducer;
-
+            mountedReducers[key] = true;
             combinedReducer = combineReducers(reducers);
         },
         // Добвляет ключ в массив удаленных keysToRemove  и удалет ключ из редьюсерра
@@ -45,6 +51,7 @@ export function createReducerManager(initialReducers: ReducersMapObject<StateSch
             }
             delete reducers[key];
             keysToRemove.push(key);
+            mountedReducers[key] = false;
             combinedReducer = combineReducers(reducers);
         },
     };

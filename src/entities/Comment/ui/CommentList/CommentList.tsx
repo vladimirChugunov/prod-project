@@ -6,9 +6,9 @@ import { CommentCard } from '../../ui/CommentCard/CommentCard';
 import cls from './CommentList.module.scss';
 
 interface CommentListProps {
-    className?: string;
-    comments: Array<Comment>
-    isLoading?: boolean
+  className?: string;
+  comments: Array<Comment>;
+  isLoading?: boolean;
 }
 
 // Этот компонет переиспользуемый, его можем использовать везде поэтому комментари передаем из вне
@@ -29,17 +29,19 @@ export const CommentList = (props: CommentListProps) => {
     }
 
     return (
-        <div
-            className={classNames(cls.CommentList, {}, [className])}
-        >
-            {comments.length ? comments.map((comment) => (
-                <CommentCard
-                    isLoading={isLoading}
-                    className={cls.comment}
-                    comment={comment}
-                />
-            ))
-                : <Text text={t('noComments')} />}
+        <div className={classNames(cls.CommentList, {}, [className])}>
+            {comments.length ? (
+                comments.map((comment) => (
+                    <CommentCard
+                        isLoading={isLoading}
+                        className={cls.comment}
+                        comment={comment}
+                        key={comment.id}
+                    />
+                ))
+            ) : (
+                <Text text={t('noComments')} />
+            )}
         </div>
     );
 };

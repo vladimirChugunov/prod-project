@@ -12,12 +12,11 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ArticleViewSelector } from 'features/ArticleViewSelector';
 import { ArticleView } from 'entities/Article';
 import { Page } from 'shared/ui/Page/Page';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
 import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import {
     articlesPageIsLoading,
     articlesPageView,
-    getArticlesPageNum,
 } from '../../model/selectors/ArticlesPageSelectors';
 import {
     ArticlePageActions,
@@ -37,7 +36,6 @@ const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
     // тут только нормальщованные данные статей по id
     const articles = useSelector(getArticles.selectAll);
     const isLoading = useSelector(articlesPageIsLoading);
-    const page = useSelector(getArticlesPageNum);
     const view = useSelector(articlesPageView); // скорее его переносить
     const reducer: ReducerList = {
         articlesPage: ArticlePageReducer,
@@ -55,16 +53,11 @@ const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(ArticlePageActions.initSate());
-        dispatch(
-            fetchArticlesList({
-                page,
-            }),
-        );
+        dispatch(initArticlesPage());
     });
-
+    // removeAfterUnmount={false} в данный момент мы не хотим что-бы при переходе в карточку статьи и по ее возвращению у нас дестроился стейт и заново создавался
     return (
-        <DynamicModuleLoader reducers={reducer} removeAfterUnmount>
+        <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page
                 className={classNames(cls.ArticlesPage, {}, [className])}
                 onScrollEnd={onLoadNextPart}

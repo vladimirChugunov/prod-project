@@ -1,4 +1,8 @@
-import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+    createEntityAdapter,
+    createSlice,
+    PayloadAction,
+} from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
 import { Article, ArticleView } from 'entities/Article';
 import { ARTICLE_VIEW_LOCALSTORAGE } from 'shared/const/localStorage';
@@ -25,6 +29,7 @@ const ArticlePageSlice = createSlice({
         view: ArticleView.SMALL,
         page: 1,
         hasMore: false,
+        _inited: false,
     }), // передаем initial state адампторы в которым мы получаем id
     reducers: {
         stateView: (state, action: PayloadAction<ArticleView>) => {
@@ -35,27 +40,30 @@ const ArticlePageSlice = createSlice({
             state.page = action.payload;
         },
         initSate: (state) => {
-            const view = localStorage.getItem(ARTICLE_VIEW_LOCALSTORAGE) as ArticleView;
+            const view = localStorage.getItem(
+                ARTICLE_VIEW_LOCALSTORAGE,
+            ) as ArticleView;
             state.view = view;
             state.limit = view === ArticleView.BIG ? 4 : 14;
+            state._inited = true;
         },
     },
     extraReducers: (builder) => {
-        // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
+    // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
         builder
             .addCase(fetchArticlesList.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(fetchArticlesList.fulfilled, (
-                state,
-                action: PayloadAction<Array<Article>>,
-            ) => {
-                state.isLoading = false;
-                // сам добавить id сам нормальзует данные и добавит entities
-                articlesAdapter.addMany(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт addMany(Добавляем в конец данные)
-                state.hasMore = action.payload.length > 0; // если с сервера прилетел хотябы один массив значит на сервере данные есть
-            })
+            .addCase(
+                fetchArticlesList.fulfilled,
+                (state, action: PayloadAction<Array<Article>>) => {
+                    state.isLoading = false;
+                    // сам добавить id сам нормальзует данные и добавит entities
+                    articlesAdapter.addMany(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт addMany(Добавляем в конец данные)
+                    state.hasMore = action.payload.length > 0; // если с сервера прилетел хотябы один массив значит на сервере данные есть
+                },
+            )
             .addCase(fetchArticlesList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;

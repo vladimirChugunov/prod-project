@@ -7,9 +7,9 @@ import { Icon } from 'shared/ui/Icon/Icon';
 import cls from './ArticleViewSelector.module.scss';
 
 interface ArticleViewSelectorProps {
-    className?: string;
-    view: ArticleView,
-    onViewClick?: (view: ArticleView) => void
+  className?: string;
+  view: ArticleView;
+  onViewClick?: (view: ArticleView) => void;
 }
 
 const viewTypes = [
@@ -31,7 +31,8 @@ export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
 
     // В onClick мы не передаем функцию (ссылку), а ее вызываем onClick(viewType.view) и вызов этой функйии вернет нам новую функцию onClick в которую мы передаем уже наши дынные
     // если просто передать не вызвать onClick, то туда передаетсья event стандартный
-    const onClick = (newView: ArticleView) => () => { // внешняя функция принимает значения
+    const onClick = (newView: ArticleView) => () => {
+    // внешняя функция принимает значения
         onViewClick?.(newView); // замыкаем значение  // попадает как слушатель события в он клик
     };
 
@@ -39,12 +40,15 @@ export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
         <div className={classNames(cls.ArticleViewSelector, {}, [className])}>
             {viewTypes.map((viewType) => (
                 <Button
+                    key={viewType.view}
                     theme={ButtonTheme.CLEAR}
                     onClick={onClick(viewType.view)}
                 >
                     <Icon
                         Svg={viewType.icon}
-                        className={classNames('', { [cls.notSelected]: viewType.view !== view })}
+                        className={classNames('', {
+                            [cls.notSelected]: viewType.view !== view,
+                        })}
                     />
                 </Button>
             ))}

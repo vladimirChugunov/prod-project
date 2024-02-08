@@ -5,30 +5,31 @@ import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
 import { StateSchemaKey } from 'app/providers/StoreProvider/config/StateSchema';
 
 export type ReducerList = {
-    [name in StateSchemaKey]?: Reducer // ключ из StateSchemaKey, а значение Reducer
-}
+  [name in StateSchemaKey]?: Reducer; // ключ из StateSchemaKey, а значение Reducer
+};
 
 interface DynamicModuleLoaderProps {
-    reducers: ReducerList
-    removeAfterUnmount?: boolean
+  reducers: ReducerList;
+  removeAfterUnmount?: boolean;
 }
 
 // Компонет для мотрирования размонтирования, ассинхронных редьюсерров
 export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
-    const {
-        children,
-        reducers,
-        removeAfterUnmount = true,
-    } = props;
+    const { children, reducers, removeAfterUnmount = true } = props;
     const dispatch = useDispatch();
     const store = useStore() as ReduxStoreWithManager; // хук редаскса, для получения стора и его функций dispatch, getState итд...
 
     // Добавляем редьюсер в момент монтирования компонета
     useEffect(() => {
+        const mountedReducers = store.reducerManager.getMountedReducers();
         Object.entries(reducers).forEach(([name, reducer]) => {
-            // Указываем ключ для добавления и 2 аргументом сам редьюсер
-            store.reducerManager.add(name as StateSchemaKey, reducer); // редьюсер будет подгружаться только с самим компонетом
-            dispatch({ type: `@INIT ${name} reducer` }); // Для логирования в  reactDevTools, монтирование
+            // Возвращаем флаг монтирован или нет редьюссер
+            const mounted = mountedReducers[name as StateSchemaKey];
+            if (!mounted) {
+                // Указываем ключ для добавления и 2 аргументом сам редьюсер
+                store.reducerManager.add(name as StateSchemaKey, reducer); // редьюсер будет подгружаться только с самим компонетом
+                dispatch({ type: `@INIT ${name} reducer` }); // Для логирования в  reactDevTools, монтирование
+            }
         });
         return () => {
             if (removeAfterUnmount) {
@@ -39,13 +40,11 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
                 });
             }
         };
-        // eslint-disable-next-line
-    }, []);
+    // eslint-disable-next-line
+  }, []);
 
     return (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-            {children}
-        </>
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>{children}</>
     );
 };

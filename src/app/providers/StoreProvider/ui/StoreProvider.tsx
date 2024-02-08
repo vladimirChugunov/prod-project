@@ -6,30 +6,23 @@ import { StateSchema } from '../config/StateSchema';
 import { createReduxStore } from '../config/store';
 
 interface StoreProviderProps {
-    children?: ReactNode;
-    initialState?: DeepPartial<StateSchema> // Сделал для того, что-бы задать initialState для state в тестах, без него не задаст стейт для начального значения с которым сравниваем
-    asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>
+  children?: ReactNode;
+  initialState?: DeepPartial<StateSchema>; // Сделал для того, что-бы задать initialState для state в тестах, без него не задаст стейт для начального значения с которым сравниваем
+  asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>;
 }
 
 export const StoreProvider = (props: StoreProviderProps) => {
-    const {
-        children,
-        initialState,
-        asyncReducers,
-    } = props;
+    const { children, initialState, asyncReducers } = props;
+    // так делать ненужно передавать navigate в создание стора иначе он будет инициализироваться во время каждого перехода на страницу
     // Добавляем возможность навигации, в createAsyncThunk // для возможности добавления в extra аргумент для thinkApi
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // передаем созданный стор в провайдер
     const store = createReduxStore(
-        initialState as StateSchema,
-        asyncReducers as ReducersMapObject<StateSchema>,
-        navigate,
+    initialState as StateSchema,
+    asyncReducers as ReducersMapObject<StateSchema>,
+    // navigate,  // нельязя передавать navigate в создание стора иначе он будет инициализироваться во время каждого перехода на страницу
     );
 
-    return (
-        <Provider store={store}>
-            {children}
-        </Provider>
-    );
+    return <Provider store={store}>{children}</Provider>;
 };
