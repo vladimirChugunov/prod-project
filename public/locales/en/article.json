@@ -9,5 +9,11 @@
   "readMore": "Read more...",
   "backToList": "Back to list",
   "sort": "Sort BY",
-  "search": "Search"
+  "search": "Search",
+  "by": "By",
+  "increasing": "Increasing",
+  "descending": "Descending",
+  "created": "By creation",
+  "title": "By title",
+  "views": "By views"
 }

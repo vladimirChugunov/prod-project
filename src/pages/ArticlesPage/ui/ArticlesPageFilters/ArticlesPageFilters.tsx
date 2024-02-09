@@ -10,6 +10,7 @@ import { articlesPageView } from 'pages/ArticlesPage/model/selectors/ArticlesPag
 import { Select } from 'shared/ui/Select/Select';
 import { Card } from 'shared/ui/Card/Card';
 import { Input } from 'shared/ui/input/Input';
+import { ArticleSortSelector } from 'entities/Article/ui/ArticleSortSelector/ArticleSortSelector';
 import cls from './ArticlesPageFilters.module.scss';
 
 interface ArticlesPageFiltersProps {
@@ -33,7 +34,12 @@ export const ArticlesPageFilters = ({
     return (
         <div className={classNames(cls.ArticlesPageFilters, {}, [className])}>
             <div className={cls.sortWrapper}>
-                <Select label={t('sort')} />
+                {/* <ArticleSortSelector */}
+                {/*    order={} */}
+                {/*    sort={} */}
+                {/*    onChangeOrder={} */}
+                {/*    onChangeSort={} */}
+                {/* /> */}
                 <ArticleViewSelector view={view} onViewClick={onViewClick} />
             </div>
             <Card className={cls.search}>
