@@ -7,5 +7,7 @@
   "commentText": "Enter comment text",
   "send": "Send",
   "readMore": "Read more...",
-  "backToList": "Back to list"
+  "backToList": "Back to list",
+  "sort": "Sort BY",
+  "search": "Search"
 }

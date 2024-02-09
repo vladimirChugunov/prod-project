@@ -6,6 +6,8 @@ import {
 import { StateSchema } from 'app/providers/StoreProvider';
 import { Article, ArticleView } from 'entities/Article';
 import { ARTICLE_VIEW_LOCALSTORAGE } from 'shared/const/localStorage';
+import { ArticleSortField } from 'entities/Article/model/types/article';
+import { SortOrder } from 'shared/types';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import { ArticlesPageSchema } from '../types/articlesPageSchema';
 
@@ -30,6 +32,10 @@ const ArticlePageSlice = createSlice({
         page: 1,
         hasMore: false,
         _inited: false,
+        limit: 9,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
     }), // передаем initial state адампторы в которым мы получаем id
     reducers: {
         stateView: (state, action: PayloadAction<ArticleView>) => {
@@ -46,6 +52,15 @@ const ArticlePageSlice = createSlice({
             state.view = view;
             state.limit = view === ArticleView.BIG ? 4 : 14;
             state._inited = true;
+        },
+        setOrder: (state, action: PayloadAction<SortOrder>) => {
+            state.order = action.payload;
+        },
+        setSort: (state, action: PayloadAction<ArticleSortField>) => {
+            state.sort = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
         },
     },
     extraReducers: (builder) => {
