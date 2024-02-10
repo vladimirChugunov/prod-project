@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { SortOrder } from 'shared/types';
-import { ArticleSortField } from 'entities/Article';
+import { ArticleSortField, ArticleType } from 'entities/Article';
 import {
     getArticlesPageInited,
     getArticlesPageNum,
@@ -24,6 +24,7 @@ export const initArticlesPage = createAsyncThunk<
             const orderFromUrl = searchParams.get('order') as SortOrder;
             const sortFromUrl = searchParams.get('sort') as ArticleSortField;
             const searchFromUrl = searchParams.get('search');
+            const typeFromUrl = searchParams.get('type') as ArticleType;
             // Сделать более атоматизированно чем if
             // передаем сохранненые значения в стейт с сортировкой, поиском
             if (orderFromUrl) {
@@ -34,6 +35,9 @@ export const initArticlesPage = createAsyncThunk<
             }
             if (searchFromUrl) {
                 dispatch(ArticlePageActions.setSearch(searchFromUrl));
+            }
+            if (typeFromUrl) {
+                dispatch(ArticlePageActions.setType(typeFromUrl));
             }
 
             //  если стейт проинициализированн то не вызываем повторный запрос
