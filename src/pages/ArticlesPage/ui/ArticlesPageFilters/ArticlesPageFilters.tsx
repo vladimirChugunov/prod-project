@@ -2,15 +2,15 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ArticleViewSelector } from 'features/ArticleViewSelector';
-import { useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { ArticleSortField, ArticleSortSelector, ArticleView } from 'entities/Article';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Card } from 'shared/ui/Card/Card';
 import { Input } from 'shared/ui/input/Input';
 import { SortOrder } from 'shared/types';
 import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { TabItem, Tabs } from 'shared/ui/Tabs/Tabs';
 import { ArticleType } from 'entities/Article/model/types/article';
+import { ArticleTypeTabs } from 'entities/Article/ui/ArticleTypeTabs/ArticleTypeTabs';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import {
     articlesPageView,
@@ -27,7 +27,7 @@ interface ArticlesPageFiltersProps {
     className?: string;
 }
 
-export const ArticlesPageFilters = ({
+export const ArticlesPageFilters = memo(({
     className,
 }: ArticlesPageFiltersProps) => {
     const { t } = useTranslation('article');
@@ -87,32 +87,13 @@ export const ArticlesPageFilters = ({
     );
 
     const onChangeType = useCallback(
-        (tab: TabItem) => {
-            dispatch(ArticlePageActions.setType(tab.value as ArticleType));
+        (value: ArticleType) => {
+            dispatch(ArticlePageActions.setType(value));
+            dispatch(ArticlePageActions.statePage(1));
             fetchData(); // можно вызвать в useEffect передать туда массив зависемостей sort, order, search,
         },
         [dispatch, fetchData],
     );
-
-    // Создаем статичный массив tab с useMemo меняем только когда изменяем tab // если большой массив обьектов можно циклом пробежать
-    const typeTabs = useMemo<Array<TabItem>>(() => [
-        {
-            value: ArticleType.ALL,
-            content: t('all'),
-        },
-        {
-            value: ArticleType.IT,
-            content: t('it'),
-        },
-        {
-            value: ArticleType.ECONOMICS,
-            content: t('economics'),
-        },
-        {
-            value: ArticleType.SCIENCE,
-            content: t('science'),
-        },
-    ], [t]);
 
     return (
         <div className={classNames(cls.ArticlesPageFilters, {}, [className])}>
@@ -132,12 +113,7 @@ export const ArticlesPageFilters = ({
                     onChange={onChangeSearch}
                 />
             </Card>
-            <Tabs
-                tabs={typeTabs}
-                value={type}
-                onTabClick={onChangeType}
-                className={cls.tabs}
-            />
+            <ArticleTypeTabs value={type} onChangeType={onChangeType} className={cls.tabs} />
         </div>
     );
-};
+});

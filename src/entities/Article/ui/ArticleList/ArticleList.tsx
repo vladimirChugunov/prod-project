@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ArticleListItemSkeleton } from 'entities/Article/ui/ArticleListItems/ArticleListItemsSkeleton';
+import { Text, TextAlignSize } from 'shared/ui/Text/Text';
+import { ArticleListItemSkeleton } from '../../ui/ArticleListItems/ArticleListItemsSkeleton';
 import { ArticleListItems } from '../ArticleListItems/ArticleListItems';
 import { Article, ArticleView } from '../../model/types/article';
 import cls from './ArticleList.module.scss';
@@ -21,7 +22,7 @@ export const ArticleList = (props: ArticleListProps) => {
         isLoading,
         view = ArticleView.SMALL,
     } = props;
-    const { t } = useTranslation();
+    const { t } = useTranslation('article');
     // Отрисовываем слелетон стольок раз сколько у нас статей для маленьких 9, больших три
 
     const getSkeletons = (view: ArticleView) => new Array(view === ArticleView.SMALL ? 9 : 3)
@@ -38,6 +39,14 @@ export const ArticleList = (props: ArticleListProps) => {
             className={cls.card}
         />
     );
+
+    if (!isLoading && !articles.length) {
+        return (
+            <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
+                <Text size={TextAlignSize.L} title={t('notArticles')} />
+            </div>
+        );
+    }
 
     return (
         <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
