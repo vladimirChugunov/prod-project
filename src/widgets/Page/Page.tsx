@@ -8,13 +8,13 @@ import { getSaveScrollByPath, saveScrollActions } from 'pages/SaveScroll';
 import { useLocation } from 'react-router-dom';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { StateSchema } from 'app/providers/StoreProvider';
-import { useThrottle } from 'shared/lib/useThrottle/useThrottle';
+import { useThrottle } from 'shared/lib/hooks/useThrottle/useThrottle';
 import cls from './Page.module.scss';
 
 interface PageProps {
-  className?: string;
-  children: ReactNode;
-  onScrollEnd?: () => void;
+    className?: string;
+    children: ReactNode;
+    onScrollEnd?: () => void;
 }
 
 // Оборачиваем компонет в Page, для того что-бы скролл был конерктно в компонете // задаем стили для страницы

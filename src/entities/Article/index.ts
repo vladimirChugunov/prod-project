@@ -4,9 +4,11 @@ export {
     ArticleDetails,
 } from './ui/ArticleDetails/ArticleDetails';
 
+export { ArticleSortSelector } from '../Article/ui/ArticleSortSelector/ArticleSortSelector';
+
 export type { Article } from './model/types/article';
 
-export { ArticleView } from './model/types/article';
+export { ArticleView, ArticleSortField, ArticleType } from './model/types/article';
 
 export type { ArticleDetailsSchema } from './model/types/ArticleDetailsSchema';
 

@@ -1,22 +1,25 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import { ChangeEvent, memo, useMemo } from 'react';
+import { ChangeEvent, useMemo } from 'react';
 import cls from './Select.module.scss';
 
-export interface SelectOption {
-    value: string
+export interface SelectOption<T> {
+    value: T
     content: string
 }
 
-export interface SelectProps {
+// Дженерик который расширяет string T extends string своего рода type guard, он не позволит передать лишние значения
+export interface SelectProps<T extends string> {
     className?: string;
     label?: string;
-    options?: Array<SelectOption>;
-    value?: string;
-    onChange?: (value: string) => void
+    options?: Array<SelectOption<T>>;
+    value?: T;
+    onChange?: (value: T) => void
     readonly?: boolean
 }
 
-export const Select = memo((props: SelectProps) => {
+// Что-бы дженерики работали с мемо нужно писать обвертку которая умеет подхватывать пропсы// РАЗОБРАТЬ!!!!
+// Дженерик который расширяет string T extends string своего рода type guard, он не позволит передать лишние значения
+export const Select = <T extends string>(props: SelectProps<T>) => {
     const {
         className,
         label,
@@ -40,7 +43,7 @@ export const Select = memo((props: SelectProps) => {
         ))
     ), [options]);
     const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.(e.target.value);
+        onChange?.(e.target.value as T);
     };
 
     return (
@@ -60,4 +63,4 @@ export const Select = memo((props: SelectProps) => {
             </select>
         </div>
     );
-});
+};

@@ -1,12 +1,9 @@
-import {
-    createEntityAdapter,
-    createSlice,
-    PayloadAction,
-} from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
-import { Article, ArticleView } from 'entities/Article';
+import {
+    Article, ArticleType, ArticleView, ArticleSortField,
+} from 'entities/Article';
 import { ARTICLE_VIEW_LOCALSTORAGE } from 'shared/const/localStorage';
-import { ArticleSortField } from 'entities/Article/model/types/article';
 import { SortOrder } from 'shared/types';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import { ArticlesPageSchema } from '../types/articlesPageSchema';
@@ -36,9 +33,10 @@ const ArticlePageSlice = createSlice({
         sort: ArticleSortField.CREATED,
         search: '',
         order: 'asc',
+        type: ArticleType.ALL,
     }), // передаем initial state адампторы в которым мы получаем id
     reducers: {
-        stateView: (state, action: PayloadAction<ArticleView>) => {
+        setView: (state, action: PayloadAction<ArticleView>) => {
             state.view = action.payload;
             localStorage.setItem(ARTICLE_VIEW_LOCALSTORAGE, action.payload);
         },
@@ -62,21 +60,31 @@ const ArticlePageSlice = createSlice({
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
         },
+        setType: (state, action: PayloadAction<ArticleType>) => {
+            state.type = action.payload;
+        },
     },
     extraReducers: (builder) => {
-    // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
+        // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
         builder
-            .addCase(fetchArticlesList.pending, (state) => {
+            .addCase(fetchArticlesList.pending, (state, action) => {
                 state.error = undefined;
                 state.isLoading = true;
+                if (action.meta.arg.replace) {
+                    articlesAdapter.removeAll(state); // removeAll очищаем массив для поиска, что-бы поиск происходил по всем страницам
+                }
             })
             .addCase(
                 fetchArticlesList.fulfilled,
-                (state, action: PayloadAction<Array<Article>>) => {
+                (state, action) => {
                     state.isLoading = false;
-                    // сам добавить id сам нормальзует данные и добавит entities
-                    articlesAdapter.addMany(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт addMany(Добавляем в конец данные)
-                    state.hasMore = action.payload.length > 0; // если с сервера прилетел хотябы один массив значит на сервере данные есть
+                    state.hasMore = action.payload.length >= state.limit; // если лимит 10, а пришло 5 статей то очевидно, что больше статей нет
+                    if (action.meta.arg.replace) {
+                        articlesAdapter.setAll(state, action.payload); // setAll  для фильтрации получаем все данные
+                    } else {
+                        // сам добавить id сам нормальзует данные и добавит entities
+                        articlesAdapter.addMany(state, action.payload); //  мы работаем с articlesAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт addMany(Добавляем в конец данные)
+                    }
                 },
             )
             .addCase(fetchArticlesList.rejected, (state, action) => {

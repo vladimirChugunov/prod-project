@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ArticleView } from 'entities/Article';
 import listIcon from 'shared/assets/icons/list-24-24.svg';
@@ -7,9 +8,9 @@ import { Icon } from 'shared/ui/Icon/Icon';
 import cls from './ArticleViewSelector.module.scss';
 
 interface ArticleViewSelectorProps {
-  className?: string;
-  view: ArticleView;
-  onViewClick?: (view: ArticleView) => void;
+    className?: string;
+    view: ArticleView;
+    onViewClick?: (view: ArticleView) => void;
 }
 
 const viewTypes = [
@@ -23,7 +24,7 @@ const viewTypes = [
     },
 ];
 
-export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
+export const ArticleViewSelector = memo((props: ArticleViewSelectorProps) => {
     const { className, onViewClick, view } = props;
 
     // Обычно онклик принимает event, но в данном случае нам нужно предавать новый вид отображения которой пользователь выбрал не event, как обычно
@@ -32,7 +33,7 @@ export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
     // В onClick мы не передаем функцию (ссылку), а ее вызываем onClick(viewType.view) и вызов этой функйии вернет нам новую функцию onClick в которую мы передаем уже наши дынные
     // если просто передать не вызвать onClick, то туда передаетсья event стандартный
     const onClick = (newView: ArticleView) => () => {
-    // внешняя функция принимает значения
+        // внешняя функция принимает значения
         onViewClick?.(newView); // замыкаем значение  // попадает как слушатель события в он клик
     };
 
@@ -54,4 +55,4 @@ export const ArticleViewSelector = (props: ArticleViewSelectorProps) => {
             ))}
         </div>
     );
-};
+});

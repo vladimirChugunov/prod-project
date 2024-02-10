@@ -14,6 +14,10 @@
   "increasing": "Increasing",
   "descending": "Descending",
   "created": "By creation",
-  "title": "By title",
-  "views": "By views"
+  "title": "By name",
+  "views": "By views",
+  "it": "It",
+  "economics": "Economics",
+  "science": "Science",
+  "all": "All"
 }

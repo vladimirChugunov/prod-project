@@ -7,19 +7,24 @@ import { ArticleSortField } from '../../model/types/article';
 import cls from './ArticleSortSelector.module.scss';
 
 interface ArticleSortSelectorProps {
-  className?: string;
-  order: SortOrder;
-  sort: ArticleSortField;
-  onChangeOrder: (newOrder: SortOrder) => void;
-  onChangeSort: (newSort: ArticleSortField) => void;
+    className?: string;
+    order: SortOrder;
+    sort: ArticleSortField;
+    onChangeOrder: (newOrder: SortOrder) => void;
+    onChangeSort: (newSort: ArticleSortField) => void;
 }
 
-export const ArticleSortSelector = ({
-    className,
-}: ArticleSortSelectorProps) => {
+export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
+    const {
+        className,
+        order,
+        sort,
+        onChangeOrder,
+        onChangeSort,
+    } = props;
     const { t } = useTranslation('article');
 
-    const orderOptions = useMemo<Array<SelectOption>>(
+    const orderOptions = useMemo<Array<SelectOption<SortOrder>>>(
         () => [
             {
                 value: 'asc',
@@ -33,7 +38,7 @@ export const ArticleSortSelector = ({
         [t],
     );
 
-    const sortFieldOptions = useMemo<Array<SelectOption>>(
+    const sortFieldOptions = useMemo<Array<SelectOption<ArticleSortField>>>(
         () => [
             {
                 value: ArticleSortField.CREATED,
@@ -50,11 +55,31 @@ export const ArticleSortSelector = ({
         ],
         [t],
     );
+    // Катуем так ненужно делать, доджен принимать в Select дженерик // пример как кастовать
+    // const changeSortHandler = useCallback((newSort: string) => {
+    //     onChangeSort(newSort as ArticleSortField);
+    // }, [onChangeSort]);
+    //
+    // const changeOrderHandler = useCallback((newOrder: string) => {
+    //     onChangeOrder(newOrder as SortOrder);
+    // }, [onChangeOrder]);
 
     return (
         <div className={classNames(cls.ArticleSortSelector, {}, [className])}>
-            <Select label={t('sort')} options={sortFieldOptions} />
-            <Select label={t('by')} options={orderOptions} />
+            <Select
+                // <ArticleSortField> если нам явно нужно использовать дженерик в компонете мы можем его явно в компонете указать
+                label={t('sort')}
+                options={sortFieldOptions}
+                value={sort}
+                onChange={onChangeSort}
+            />
+            <Select
+                label={t('by')}
+                options={orderOptions}
+                value={order}
+                onChange={onChangeOrder}
+                className={cls.order}
+            />
         </div>
     );
 };

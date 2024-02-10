@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
@@ -24,7 +25,7 @@ import {
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
-  className?: string;
+    className?: string;
 }
 
 const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
@@ -38,13 +39,14 @@ const ArticlesPage = memo(({ className }: ArticlesPageProps) => {
     const reducer: ReducerList = {
         articlesPage: ArticlePageReducer,
     };
+    const [searchParams] = useSearchParams(); // возвращает объект URLSearchParams(window.location.search)
 
     const onLoadNextPart = useCallback(() => {
         dispatch(fetchNextArticlesPage());
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(initArticlesPage());
+        dispatch(initArticlesPage(searchParams));
     });
     // removeAfterUnmount={false} в данный момент мы не хотим что-бы при переходе в карточку статьи и по ее возвращению у нас дестроился стейт и заново создавался
     return (
