@@ -1,15 +1,19 @@
 // По умолчанию у некоторых элементов заложены стили , тут мы их обнуляем
 // Обнуляем отступы и делаем шрифт наследуемым
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 input,
 button,
 textarea,
 select {
-    margin: 0;
-    font: inherit;
+  margin: 0;
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
 }

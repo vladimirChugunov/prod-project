@@ -4,7 +4,8 @@ module.exports = {
         es2021: true,
         jest: true,
     },
-    extends: ['plugin:react/recommended',
+    extends: [
+        'plugin:react/recommended',
         'airbnb',
         'plugin:i18next/recommended',
         'plugin:storybook/recommended',
@@ -18,12 +19,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: [
-        'react',
-        '@typescript-eslint',
-        'i18next',
-        'react-hooks',
-    ],
+    plugins: ['react', '@typescript-eslint', 'i18next', 'react-hooks'],
     rules: {
         'react/jsx-indent': [2, 4],
         'react/jsx-indent-props': [2, 4],
@@ -47,11 +43,11 @@ module.exports = {
             'error',
             {
                 markupOnly: true,
-                ignoreAttribute: ['data-testid', 'to'],
+                ignoreAttribute: ['data-testid', 'to', 'target'], // Добавляем атрибуты в которые передаем например стрингу, что-бы I18n не ругался, пример  target="_blank"
             },
         ],
-        'max-len': ['error', { ignoreComments: true, code: 120 }],
-        'arrow-body-style': ['warn', 'as-needed'],
+        'max-len': ['error', { ignoreComments: true, code: 125 }],
+        'arrow-body-style': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'react-hooks/rules-of-hooks': 'error', // Проверка правила хуков
@@ -60,7 +56,8 @@ module.exports = {
         'no-undef': 'off', // Запретить использование необъявленных переменных, если они не упомянуты в /*global */комментариях. /*global DeepPartial, a*/ везде коммент ставить нужно будет
         'react/no-array-index-key': 'off', // даем возможность передавать index in key / если элементы не удаляются и не изменяються можно добавлять индекс!
     },
-    globals: { // Чторбы линтер не ругался добавляем глобальные переменные
+    globals: {
+    // Чторбы линтер не ругался добавляем глобальные переменные
         __IS_DEV__: true,
         __API__: true,
         __PROJECT__: true,

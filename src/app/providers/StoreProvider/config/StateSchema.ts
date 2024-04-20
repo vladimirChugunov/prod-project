@@ -6,7 +6,11 @@ import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
 import { ProfileSchema } from 'entities/Profile';
 import { ArticleDetailsSchema } from 'entities/Article';
-import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
+import {
+    ArticleDetailsCommentsSchema,
+    ArticleDetailsPageRecommendationsSchema,
+    ArticleDetailsPageSchema,
+} from 'pages/ArticleDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
 import { ArticlesPageSchema } from 'pages/ArticlesPage';
 import { SaveScrollSchema } from 'pages/SaveScroll';
@@ -16,13 +20,14 @@ export interface StateSchema {
   counter: CounterSchema;
   user: UserSchema;
   saveScroll: SaveScrollSchema;
+
   // Асснихронные редьюсеры
   loginForm?: LoginSchema; // опциональный для ассинхроной подгрузки
   profile?: ProfileSchema;
   articleDetails?: ArticleDetailsSchema;
-  ArticleDetailsComments?: ArticleDetailsCommentsSchema;
   addCommentForm?: AddCommentFormSchema;
   articlesPage?: ArticlesPageSchema;
+  articleDetailsPage?: ArticleDetailsPageSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

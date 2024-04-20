@@ -8,9 +8,9 @@ import { Icon } from 'shared/ui/Icon/Icon';
 import cls from './ArticleViewSelector.module.scss';
 
 interface ArticleViewSelectorProps {
-    className?: string;
-    view: ArticleView;
-    onViewClick?: (view: ArticleView) => void;
+  className?: string;
+  view: ArticleView;
+  onViewClick?: (view: ArticleView) => void;
 }
 
 const viewTypes = [
@@ -33,7 +33,7 @@ export const ArticleViewSelector = memo((props: ArticleViewSelectorProps) => {
     // В onClick мы не передаем функцию (ссылку), а ее вызываем onClick(viewType.view) и вызов этой функйии вернет нам новую функцию onClick в которую мы передаем уже наши дынные
     // если просто передать не вызвать onClick, то туда передаетсья event стандартный
     const onClick = (newView: ArticleView) => () => {
-        // внешняя функция принимает значения
+    // внешняя функция принимает значения
         onViewClick?.(newView); // замыкаем значение  // попадает как слушатель события в он клик
     };
 

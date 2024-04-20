@@ -22,6 +22,21 @@ body {
   display: flex;
 }
 
+*::-webkit-scrollbar {
+  width: 12px; /* ширина всей полосы прокрутки */
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--card-bg); /* цвет зоны отслеживания (Дорожки) */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--inverted-primary-color); /* цвет плашки */
+  border-radius: 20px; /* закругление бегунка */
+  border: 2px solid var(--primary-color); /* (padding)отступ вокруг бегунка */
+}
+
 //.page-wrapper {
 //  flex-grow: 1;
 //  padding: 20px 20px 20px 40px;

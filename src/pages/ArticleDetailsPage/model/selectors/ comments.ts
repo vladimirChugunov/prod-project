@@ -1,5 +1,9 @@
 import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getArticleCommentsIsLoading = (state: StateSchema) => state.ArticleDetailsComments?.isLoading;
+export const getArticleCommentsIsLoading = (state: StateSchema) => {
+    return state.articleDetailsPage?.comments?.isLoading;
+};
 
-export const getArticleCommentsErrors = (state: StateSchema) => state.ArticleDetailsComments?.errors;
+export const getArticleCommentsErrors = (state: StateSchema) => {
+    return state.articleDetailsPage?.comments?.errors;
+};

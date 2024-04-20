@@ -1,12 +1,14 @@
 // Нормальзация данных
 // Функция, которая генерирует набор готовых редукторов и селекторов для выполнения операций CRUD над нормализованной структурой состояния ,
 // содержащей экземпляры объекта данных определенного типа.
-import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+    createEntityAdapter,
+    createSlice,
+    PayloadAction,
+} from '@reduxjs/toolkit';
 import { Comment } from 'entities/Comment';
 import { StateSchema } from 'app/providers/StoreProvider';
-import {
-    fetchCommentsByArticleId,
-} from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
 
 // сам добавить id сам нормальзует данные и добавит entities, он создает entities c массивом наших комментов [1,2,3] которые привязаны к id пользолвателя, а внутри лежит user
@@ -19,7 +21,7 @@ const commentsAdapter = createEntityAdapter<Comment>({
 // Создаем селектор по которому мы будем получать комментарии
 export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
     // возвращаем стейт state.ArticleDetailsComments и initial state commentsAdapter.getInitialState()
-    (state) => state.ArticleDetailsComments || commentsAdapter.getInitialState(),
+    (state) => state.articleDetailsPage?.comments || commentsAdapter.getInitialState(),
 );
 
 const articleDetailsCommentsSlice = createSlice({
@@ -32,20 +34,20 @@ const articleDetailsCommentsSlice = createSlice({
     }), // передаем initial state адампторы в которым мы получаем id
     reducers: {},
     extraReducers: (builder) => {
-        // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
+    // работатем с нашей санкой из нее мы получаем несколько состояний pending,fulfilled, rejected
         builder
             .addCase(fetchCommentsByArticleId.pending, (state) => {
                 state.errors = undefined;
                 state.isLoading = true;
             })
-            .addCase(fetchCommentsByArticleId.fulfilled, (
-                state,
-                action: PayloadAction<Array<Comment>>,
-            ) => {
-                state.isLoading = false;
-                // сам добавить id сам нормальзует данные и добавит entities
-                commentsAdapter.setAll(state, action.payload); //  мы работаем с commentsAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт
-            })
+            .addCase(
+                fetchCommentsByArticleId.fulfilled,
+                (state, action: PayloadAction<Array<Comment>>) => {
+                    state.isLoading = false;
+                    // сам добавить id сам нормальзует данные и добавит entities
+                    commentsAdapter.setAll(state, action.payload); //  мы работаем с commentsAdapter и там происходит нормальзация,передаем наш стейт и данные которые мы хотим добавить в стейт
+                },
+            )
             .addCase(fetchCommentsByArticleId.rejected, (state, action) => {
                 state.isLoading = false;
                 state.errors = action.payload;
