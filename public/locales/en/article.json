@@ -8,6 +8,7 @@
   "send": "Send",
   "readMore": "Read more...",
   "backToList": "Back to list",
+  "edit": "Edit",
   "sort": "Sort BY",
   "search": "Search",
   "by": "By",
@@ -21,5 +22,7 @@
   "science": "Science",
   "all": "All",
   "notArticles": "Not Articles",
-  "recommendation": "Recommended"
+  "recommendation": "Recommended",
+  "editArticle": "Editing article ",
+  "createArticle": "Creating Article"
 }

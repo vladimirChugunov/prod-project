@@ -5,10 +5,13 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { LoginModal } from 'features/AuthByUserName';
 import { getUserData, userActions } from 'entities/User';
+import { Text, TextAlignSize, TextTheme } from 'shared/ui/Text/Text';
+import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
-    className?: string;
+  className?: string;
 }
 
 export const Navbar = memo(({ className }: NavbarProps) => {
@@ -20,12 +23,12 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     // ссылки которые мы передаем пропсами сохраняем/ но есть ньюансы
     // закрывается модалка в Modal, там описан сброс
     const onCloseModal = useCallback(() => {
-        //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
+    //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
         setIsAuthModal(false);
     }, []);
 
     const onShowModal = useCallback(() => {
-        //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
+    //  setIsAuthModal((prev) => !prev); // при нажатии меняем состояние/ если prev = true, то будет false и наоботрот
         setIsAuthModal(true);
     }, []);
 
@@ -36,6 +39,18 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     if (authData) {
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
+                <Text
+                    theme={TextTheme.INVERTED}
+                    className={cls.appName}
+                    title={t('name')}
+                />
+                <AppLink
+                    className={cls.createBtn}
+                    theme={AppLinkTheme.SECONDARY}
+                    to={RoutePath.article_create}
+                >
+                    {t('createArticle')}
+                </AppLink>
                 <Button
                     theme={ButtonTheme.CLEAR_INVERTED}
                     className={cls.links}
@@ -57,9 +72,9 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 {t('login')}
             </Button>
 
-            {isAuthModal
-                && (<LoginModal isOpen={isAuthModal} onClose={onCloseModal} />
-                )}
+            {isAuthModal && (
+                <LoginModal isOpen={isAuthModal} onClose={onCloseModal} />
+            )}
         </header>
     );
 });

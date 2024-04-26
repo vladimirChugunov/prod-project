@@ -1,4 +1,6 @@
 {
   "login": "Login",
-  "exit": "Exit"
+  "exit": "Exit",
+  "name": "APP",
+  "createArticle": " Create Article"
 }

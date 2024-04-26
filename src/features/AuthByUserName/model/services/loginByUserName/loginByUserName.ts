@@ -24,6 +24,7 @@ export const loginByUserName = createAsyncThunk<
     async (authData, thunkAPI) => {
     // thunkAPI внутри содержится Api самого Thunk с функциями: для обработки ошибок, вызова другого actions и другое  // authData = LoginByUserNameProps запрос на сервак
         const { extra, dispatch, rejectWithValue } = thunkAPI;
+        console.log(authData);
         try {
             const response = await extra.api.post<User>('/login', authData); // отправляем запрос на сервер с полями userName и password, <User> типизируем ответ с сервера
             console.log(response);
