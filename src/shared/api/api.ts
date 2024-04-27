@@ -8,7 +8,13 @@ import { USER_LOCALSTORAGE_KEY } from 'shared/const/localStorage';
 // создаем instance при помощи функции create (axios.create)
 export const $api = axios.create({
     baseURL: __API__, // порт на котором крутится бекенд
-    headers: {
-        authorization: localStorage.getItem(USER_LOCALSTORAGE_KEY) || '',
-    },
+});
+// interceptor патерн перехватчик, который отрабатывает перед каким-то действием
+$api.interceptors.request.use((config) => {
+    // type guard если в конфиге есть заголовок
+    if (config.headers) {
+    // в данном случае перед запрос авторизации
+        config.headers.Authorization = localStorage.getItem(USER_LOCALSTORAGE_KEY) || '';
+    }
+    return config;
 });
