@@ -64,6 +64,8 @@
     "eslint-plugin-react": "^7.29.2",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-storybook": "^0.6.15",
+    "eslint-plugin-ulbi-tv-plugin": "^0.0.1",
+    "eslint-plugin-vladimir-developer-plugun": "^0.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
@@ -101,6 +103,9 @@
     "react-i18next": "^11.15.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1"
+  },
+  "commentsForpeerDependencies": {
+    "ccommentsForpeerDependencies": "// peerDependencies Означает, что вашему пакету нужна такая же зависимость, как и человеку, устанавливающему ваш пакет.\n  // В моем случае я устанавливаю react_virtualizated . Мне нужны такие же зависимости, как человеку устанавливающему пакет.\n  // тоесть тот уто опубликовал пакет ставит зависимости и я их доустанавливаю.\n  //  Используется для таких пакетов, как react, которые должны иметь единственную копию react-dom, которая также используется человеком, устанавливающим его.\n  // react-dom должен иметь одну копию, поэтому я себе ставлю, а чел разработчик у себя. Так как завичимоть одноранговая(один раз можно установить) что-бы установить без них --force флаг вместо --save лучше так не делать"
   },
   "loki": {
     "configurations": {

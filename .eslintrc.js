@@ -19,7 +19,14 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['react', '@typescript-eslint', 'i18next', 'react-hooks'],
+    plugins: [
+        'react',
+        '@typescript-eslint',
+        'i18next',
+        'vladimir-developer-plugun',
+        // 'ulbi-tv-plugin',
+        'react-hooks',
+    ],
     rules: {
         'react/jsx-indent': [2, 4],
         'react/jsx-indent-props': [2, 4],
@@ -55,6 +62,8 @@ module.exports = {
         'no-param-reassign': 'off', // Даем возможность метять аргументы функции для редакс
         'no-undef': 'off', // Запретить использование необъявленных переменных, если они не упомянуты в /*global */комментариях. /*global DeepPartial, a*/ везде коммент ставить нужно будет
         'react/no-array-index-key': 'off', // даем возможность передавать index in key / если элементы не удаляются и не изменяються можно добавлять индекс!
+        // 'ulbi-tv-plugin/path-checker': 'error',
+        'vladimir-developer-plugun/path-checker': 'error',
     },
     globals: {
     // Чторбы линтер не ругался добавляем глобальные переменные
